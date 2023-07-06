@@ -54,7 +54,7 @@ window:
   startup_mode: Windowed
 
   # Background opacity
-  opacity: 0.9
+  opacity: 0.7
 
 scrolling:
   # maximum number of lines in the scrollback buffer. Specifying '0' will
