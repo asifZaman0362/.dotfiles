@@ -155,13 +155,13 @@
     obs-studio
     obsidian
     obs-studio-plugins.input-overlay
-    #(fenix.complete.withComponents [
-    cargo
-    clippy
-    #rust-src
-    rustc
-    rustfmt
-    #])
+    (fenix.complete.withComponents [
+        "cargo"
+        "clippy"
+        "rust-src"
+        "rustc"
+        "rustfmt"
+    ])
     rust-analyzer
     mate.mate-polkit
     cmake
