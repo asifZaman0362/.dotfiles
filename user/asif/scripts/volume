@@ -1,0 +1,21 @@
+#!/bin/bash
+
+vol=$(pamixer --get-volume)
+
+if [ "$1" = "up" ]; then
+    vol="$(($vol+$2))"
+elif [ "$1" = "down" ]; then
+    vol="$(($vol-$2))"
+else
+    vol=$vol
+fi
+
+if [ $vol -gt 100 ]; then
+    vol=100
+elif [ $vol -lt 0 ]; then 
+    vol=0
+fi
+
+echo $vol
+pamixer --set-volume $vol
+

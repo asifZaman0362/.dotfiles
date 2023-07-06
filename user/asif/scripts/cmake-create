@@ -1,0 +1,57 @@
+#!/bin/sh
+
+# get the path for the project
+dirname="$(pwd)/$1"
+if [ -d $dirname ]; then
+    echo "target directory already exists!"
+    exit -1
+fi
+origpath="$(pwd)"
+
+# create the directory structure for the project
+mkdir $dirname
+mkdir $dirname/src
+mkdir $dirname/inc
+mkdir $dirname/build
+
+# generate CMakeLists.txt file
+printf "cmake_minimum_required(VERSION 3.15)
+project($1)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+include_directories(inc)
+
+set(SOURCE_FILES src/main.cc)
+set(HEADER_FILES inc/stdinc.hpp)
+
+add_executable(\${CMAKE_PROJECT_NAME} \${SOURCE_FILES} \${HEADER_FILES})" > $dirname/CMakeLists.txt
+
+# generate a dummy include file
+printf "#include <iostream>
+#include <cstdlib>" > $dirname/inc/stdinc.hpp
+
+#generate a dummy main file
+printf "#include \"stdinc.hpp\"
+
+int main(const int argc, const char **argv) {
+    std::cout << \"Hello, World!\" << std::endl;
+    return 0;
+}" > $dirname/src/main.cc
+
+# initialize git repository
+git init $dirname
+printf "build/" > .gitignore
+
+# generate build files and setup linter helpers
+cd $dirname/build
+cmake ..
+
+if [ -e $dirname/build/compile_commands.json ]; then
+    ln -sf $dirname/build/compile_commands.json $dirname/compile_commands.json
+fi
+
+# build and run the project for testing
+make
+./$1
+echo $cmake_file_template

@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       ./overlay-dwm.nix
-      # ./overlay-rust.nix
+      ./overlay-rust.nix
       ./systemd.nix
     ];
 
@@ -164,6 +164,9 @@
     #])
     rust-analyzer
     mate.mate-polkit
+    cmake
+    dwmblocks
+    nitrogen
   ];
 
   fonts.fonts = with pkgs; [
@@ -181,6 +184,15 @@
     enableSSHSupport = true;
   };
   programs.nm-applet.enable = true;
+
+  programs.zsh = {
+    syntaxHighlighting.enable = true;
+    enableCompletion = true;
+    autosuggestions = {
+      enable = true;
+      async = true;
+    };
+  };
 
   # List services that you want to enable:
 

@@ -3,26 +3,16 @@
 let
   dotfilesRepo = "https://github.com/asifZaman0362/dotfiles.git";
   dotfilesDir = "${builtins.getEnv "HOME"}/.dotfiles";
-  nixneovim = import (builtins.fetchGit {
-    url = "https://github.com/NixNeovim/NixNeovim";
-  });
+  homeDir = "/home/asif";
+  username = "asif";
 in
 {
   # Let Home Manager install and manage itself:
   programs.home-manager.enable = true;
-
-
-  imports = [
-    nixneovim.nixosModules.default
-  ];
-
-  nixpkgs.overlays = [
-    nixneovim.overlays.default
-  ];
   
   # Home Manager needs a bit of information about you and the paths it should manage:
-  home.username = "asif";
-  home.homeDirectory = "/home/asif";
+  home.username = "${username}";
+  home.homeDirectory = "${homeDir}";
   
   # This value determines the Home Manager release that your configuration is compatible with.
   # This helps avoid breakage when a new Home Manager release introduces backwards incompatible changes.
@@ -42,54 +32,11 @@ in
     exa
     bat
     trash-cli
+    zsh
+    zsh-powerlevel10k
   ];
 
-  programs.nixneovim = {
-
-    enable = true;
-    
-    # to install plugins just activate their modules
-    plugins = {
-      lsp = {
-        enable = true;
-        hls.enable = true;
-        rust-analyzer.enable = true;
-      };
-      treesitter = {
-        enable = true;
-        indent = true;
-      };
-      lualine = {
-        enable = true;
-      };
-      gruvbox = {
-	enable = true;
-      };
-      telescope.enable = true;
-      neogit.enable = true;
-      nvim-cmp.enable = true;
-    };
-
-    # Not all plugins have own modules
-    # You can add missing plugins here
-    # `pkgs.vimExtraPlugins` is added by the overlay you added at the beginning
-    # For a list of available plugins, look here: [available plugins](https://github.com/jooooscha/nixpkgs-vim-extra-plugins/blob/main/plugins.md)
-    #extraPlugins = [ pkgs.vimExtraPlugins.<plugin> ];
-
-    extraConfigVim = ''
-    colorscheme gruvbox
-    set autoindent
-    set smartindent
-    set expandtab
-    set tabstop=4
-    set shiftwidth=4
-    set softtabstop=4
-    set number
-    set relativenumber
-    '';
-
-  };
-
+  home.sessionPath = [ "${homeDir}/.scripts" ];
 
   programs.gh.enable = true;
 
@@ -108,17 +55,44 @@ in
         less = "bat";
         python = "python3";
     };
-    zplug = {
+    #zplug = {
+    #    enable = true;
+    #    plugins = [
+    #        { name = "zsh-users/zsh-autosuggestions"; }
+    #        { name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
+    #        { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
+    #        { name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
+    #        { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+    #    ];
+    #};
+    oh-my-zsh = {
         enable = true;
-        plugins = [
-            { name = "zsh-users/zsh-autosuggestions"; }
-            { name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
-            { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
-            { name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
-            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
-        ];
+        plugins = [ "git" "ssh-agent" ];
+        theme = "half-life";
     };
-    initExtra = "source ~/.p10k.zsh";
+    initExtra = ''
+        source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+        [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+    '';
+    #initExtra = "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh";
+  };
+
+  programs.neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      withNodeJs = true;
+      withPython3 = true;
+      defaultEditor = true;
+      extraPackages = with pkgs; [
+        nodePackages.pyright
+        nodePackages.typescript
+        nodePackages.typescript-language-server
+        shfmt
+        sumneko-lua-language-server
+        tree-sitter
+        nodePackages.prettier_d_slim
+      ];
   };
 
   #home.file.".dotfiles".source = lib.cleanSource {
@@ -129,6 +103,22 @@ in
   #      rev = "main";
   #  };
   #};
+
+  home.file.".scripts".source = ./scripts;
+
+  xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
+  xdg.configFile."nvim/lua".source = ./nvim/lua;
+  xdg.configFile."alacritty".source = ./alacritty;
+
+  xsession = {
+    enable = true;
+    initExtra = ''
+    nitrogen --restore &
+    '';
+  };
+
+  services.dunst.enable = true;
+
 
   #home.file.".dotfilesDir".source = "${config.home.file[".dotfiles"]}/.";
   #home.file.".dotfilesDir".target = dotfilesDir;

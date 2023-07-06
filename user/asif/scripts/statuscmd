@@ -1,0 +1,8 @@
+#!/bin/sh
+while true; do
+    sleep 1
+    d="$(date +'%b %d │ %l:%M %P')"
+    usage="$(free -h | grep "Mem:" | awk '{print "mem: " $3 "/" $2}')"
+    disk="$(df -h / | grep "/dev" | awk '{print "root: " $3 "/" $2}')"
+    xsetroot -name "  $disk │ $usage │ date: $d  "
+done
