@@ -170,7 +170,7 @@
   ];
 
   fonts.fonts = with pkgs; [
-	(nerdfonts.override { fonts = [ "FiraCode" "Hack" ]; })
+	(nerdfonts.override { fonts = [ "FiraCode" "Hack" "UbuntuMono" ]; })
 	jetbrains-mono
   ];
 

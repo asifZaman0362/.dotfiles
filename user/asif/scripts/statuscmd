@@ -1,8 +1,27 @@
 #!/bin/sh
-while true; do
-    sleep 1
-    d="$(date +'%b %d │ %l:%M %P')"
-    usage="$(free -h | grep "Mem:" | awk '{print "mem: " $3 "/" $2}')"
-    disk="$(df -h / | grep "/dev" | awk '{print "root: " $3 "/" $2}')"
-    xsetroot -name "  $disk │ $usage │ date: $d  "
+function update {
+    total_mem=$(free -h | grep "Mem:" | awk '{ print $2 }')
+    used_mem=$(free -h | grep "Mem:" | awk '{ print $3 }')
+    mem="󰍛 $used_mem/$total_mem"
+
+    total_root=$(df -h / | grep "/dev/" | awk '{ print $2 }')
+    used_root=$(df -h / | grep "/dev/" | awk '{ print $3 }')
+    root="󱛟 $used_root/$total_root"
+
+    total_home=$(df -h /home | grep "/dev/" | awk '{ print $2 }')
+    used_home=$(df -h /home | grep "/dev/" | awk '{ print $3 }')
+    home="󱂵 $used_home/$total_home"
+
+    time="󱑂 $(date '+%I:%M:%S %p')"
+
+    date="󰃭 $(date '+%a, %b %d')"
+
+    status="^b#fabd2f^^c#282828^ $mem ^b#8ec07c^ $root ^b#7fa2ac^ $date ^b#d4879c^ $time "
+    xsetroot -name "$status"
+}
+
+while true
+do
+    update
+    sleep 5
 done

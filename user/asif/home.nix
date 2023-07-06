@@ -35,6 +35,7 @@ in
     zsh
     zsh-powerlevel10k
     gnumake
+    nix-prefetch-git
   ];
 
   home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -106,16 +107,30 @@ in
   #};
 
   home.file.".scripts".source = ./scripts;
+  home.file.".Xresources".source = ./.Xresources;
 
   xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
   xdg.configFile."nvim/lua".source = ./nvim/lua;
   xdg.configFile."alacritty".source = ./alacritty;
+  xdg.configFile."picom/picom.conf".source = ./picom.conf;
 
   xsession = {
     enable = true;
     initExtra = ''
     nitrogen --restore &
+    statuscmd &
+    picom &
     '';
+  };
+
+  gtk.iconTheme = {
+    package = pkgs.gruvbox-dark-icons-gtk;
+    name = "Gruvbox-Dark";
+  };
+
+  gtk.theme = {
+    package = pkgs.gruvbox-dark-gtk;
+    name = "gruvbox-dark-gtk";
   };
 
   services.dunst.enable = true;
