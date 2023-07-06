@@ -1,24 +1,12 @@
-{ config, pkgs, libs, ... }:
+{ config, pkgs, ... }:
 
 let
   dotfilesRepo = "https://github.com/asifZaman0362/dotfiles.git";
   dotfilesDir = "${builtins.getEnv "HOME"}/.dotfiles";
-  nixneovim = import (builtins.fetchGit {
-    url = "https://github.com/NixNeovim/NixNeovim";
-  });
 in
 {
   # Let Home Manager install and manage itself:
   programs.home-manager.enable = true;
-
-
-  imports = [
-    nixneovim.nixosModules.default
-  ];
-
-  nixpkgs.overlays = [
-    nixneovim.overlays.default
-  ];
   
   # Home Manager needs a bit of information about you and the paths it should manage:
   home.username = "asif";
@@ -44,52 +32,23 @@ in
     trash-cli
   ];
 
-  programs.nixneovim = {
-
-    enable = true;
-    
-    # to install plugins just activate their modules
-    plugins = {
-      lsp = {
-        enable = true;
-        hls.enable = true;
-        rust-analyzer.enable = true;
-      };
-      treesitter = {
-        enable = true;
-        indent = true;
-      };
-      lualine = {
-        enable = true;
-      };
-      gruvbox = {
-	enable = true;
-      };
-      telescope.enable = true;
-      neogit.enable = true;
-      nvim-cmp.enable = true;
-    };
-
-    # Not all plugins have own modules
-    # You can add missing plugins here
-    # `pkgs.vimExtraPlugins` is added by the overlay you added at the beginning
-    # For a list of available plugins, look here: [available plugins](https://github.com/jooooscha/nixpkgs-vim-extra-plugins/blob/main/plugins.md)
-    #extraPlugins = [ pkgs.vimExtraPlugins.<plugin> ];
-
-    extraConfigVim = ''
-    colorscheme gruvbox
-    set autoindent
-    set smartindent
-    set expandtab
-    set tabstop=4
-    set shiftwidth=4
-    set softtabstop=4
-    set number
-    set relativenumber
-    '';
-
+  programs.neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      withNodeJs = true;
+      withPython3 = true;
+      defaultEditor = true;
+      extraPackages = with pkgs; [
+        nodePackages.pyright
+        nodePackages.typescript
+        nodePackages.typescript-language-server
+        shfmt
+        sumneko-lua-language-server
+        tree-sitter
+        nodePackages.prettier_d_slim
+      ];
   };
-
 
   programs.gh.enable = true;
 

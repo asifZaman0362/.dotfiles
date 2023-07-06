@@ -13,7 +13,11 @@
       ./systemd.nix
     ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  inputs.nixneovim.url = "github:nixneovim/nixneovim";
+
+  #nixpkgs.overlays = [
+    #nixneovim.overlays.default
+  #];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -24,6 +28,7 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Set your time zone.
   time.timeZone = "Asia/Kolkata";
@@ -144,7 +149,7 @@
     pavucontrol
     clang
     gcc
-    cinnamon.nemo-with-extensions
+    nemo
     python3
     alacritty
     zsh
@@ -158,7 +163,7 @@
     #(fenix.complete.withComponents [
     cargo
     clippy
-    #rust-src
+    rust-src
     rustc
     rustfmt
     #])
