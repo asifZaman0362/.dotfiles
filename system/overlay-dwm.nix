@@ -5,7 +5,7 @@ let
     owner = "asifZaman0362";
     repo = "dwm";
     rev = "master";
-    sha256 = "sha256-5F6zF+qSD3jLT+WglV91ZJZRKmtJ704xzMCCud3O+j0=";
+    sha256 = "sha256-xHxdtb0hi9If/whLXNp+xL3BowxNRNQGEzSE+3p30QI=";
   };
 in
 

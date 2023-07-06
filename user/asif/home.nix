@@ -112,14 +112,12 @@ in
   xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
   xdg.configFile."nvim/lua".source = ./nvim/lua;
   xdg.configFile."alacritty".source = ./alacritty;
-  xdg.configFile."picom/picom.conf".source = ./picom.conf;
 
   xsession = {
     enable = true;
     initExtra = ''
     nitrogen --restore &
     statuscmd &
-    picom &
     '';
   };
 
@@ -134,6 +132,19 @@ in
   };
 
   services.dunst.enable = true;
+
+  services.picom = {
+    enable = true;
+    fade = true;
+    backend = "glx";
+    vSync = true;
+    settings = {
+      blur = {
+        method = "dual_kawase";
+        strength = 5;
+      };
+    };
+  };
 
 
   #home.file.".dotfilesDir".source = "${config.home.file[".dotfiles"]}/.";

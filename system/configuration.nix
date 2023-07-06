@@ -88,7 +88,7 @@
   services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
 
-  services.picom.enable = true;
+  #services.picom.enable = true;
 
   services.geoclue2.enable = true;
   location.provider = "geoclue2";
@@ -183,7 +183,7 @@
     enable = true;
     enableSSHSupport = true;
   };
-  programs.nm-applet.enable = true;
+  #programs.nm-applet.enable = true;
 
   programs.zsh = {
     syntaxHighlighting.enable = true;
