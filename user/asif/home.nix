@@ -34,6 +34,7 @@ in
     trash-cli
     zsh
     zsh-powerlevel10k
+    gnumake
   ];
 
   home.sessionPath = [ "${homeDir}/.scripts" ];
