@@ -482,3 +482,6 @@ debug:
 
   # Record all characters and escape sequences as test data.
   ref_test: false
+
+shell:
+  program: "tmux"

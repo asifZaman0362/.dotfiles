@@ -23,6 +23,7 @@ in
   
   home.packages = with pkgs; [
     audacity
+    gnome.gnome-boxes
     gimp
     jack2
     nodejs_20
@@ -42,6 +43,17 @@ in
   ];
 
   home.sessionPath = [ "${homeDir}/.scripts" ];
+
+  programs.tmux = {
+    enable = true;
+    keyMode = "vi";
+    mouse = true;
+    plugins = with pkgs.tmuxPlugins; [ 
+        battery
+        sensible
+        gruvbox
+    ];
+  };
 
   programs.gh.enable = true;
 
