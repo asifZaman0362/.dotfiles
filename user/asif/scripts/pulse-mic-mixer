@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 pactl load-module module-null-sink sink_name=sink_mix sink_properties=device.description="Mix microphone and speaker"
 pactl load-module module-loopback source=<speaker_name>.monitor sink=sink_mix

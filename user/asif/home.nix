@@ -36,6 +36,9 @@ in
     zsh-powerlevel10k
     gnumake
     nix-prefetch-git
+    tmux
+    ffmpeg
+    vlc
   ];
 
   home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -132,6 +135,10 @@ in
   };
 
   services.dunst.enable = true;
+  services.kdeconnect.enable = true;
+  services.kdeconnect.indicator = true;
+
+  services.network-manager-applet.enable = true;
 
   services.picom = {
     enable = true;
