@@ -133,6 +133,7 @@ in
     initExtra = ''
     nitrogen --restore &
     statuscmd &
+    static-web-server -p 8000 -d /home/asif/src/startpage &
     '';
   };
 

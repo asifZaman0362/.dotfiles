@@ -32,6 +32,7 @@
     allowedUDPPortRanges = [ 
       { from = 1714; to = 1764; } # KDE Connect
     ];  
+    allowedTCPPorts = [ 80 443 ];
   };
 
 
@@ -178,7 +179,13 @@
     cmake
     dwmblocks
     nitrogen
+    static-web-server
   ];
+
+  services.static-web-server = {
+    enabled = true;
+    root = "/home/asif/src/startpage";
+  };
 
   fonts.fonts = with pkgs; [
 	(nerdfonts.override { fonts = [ "FiraCode" "Hack" "UbuntuMono" ]; })
