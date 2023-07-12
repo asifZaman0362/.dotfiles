@@ -166,6 +166,16 @@ in
     };
   };
 
+  services.spotifyd = {
+    enable = true;
+    settings = {
+      global = {
+        username = builtins.readFile ./spotifyuser;
+        password = builtins.readFile ./spotifypassword;
+      };
+    };
+  };
+
 
   #home.file.".dotfilesDir".source = "${config.home.file[".dotfiles"]}/.";
   #home.file.".dotfilesDir".target = dotfilesDir;

@@ -182,10 +182,6 @@
     static-web-server
   ];
 
-  services.static-web-server = {
-    enabled = true;
-    root = "/home/asif/src/startpage";
-  };
 
   fonts.fonts = with pkgs; [
 	(nerdfonts.override { fonts = [ "FiraCode" "Hack" "UbuntuMono" ]; })
