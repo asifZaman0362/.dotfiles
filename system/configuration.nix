@@ -146,6 +146,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    virt-manager
     wget
     git
     luajit
@@ -233,6 +234,10 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+  
+  virtualisation.libvirtd.enable = true;
+  programs.dconf.enable = true;
+
 
 }
 

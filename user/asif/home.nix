@@ -40,6 +40,9 @@ in
     tmux
     ffmpeg
     vlc
+    gnome.seahorse
+    libsecret
+    pkg-config
   ];
 
   home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -168,14 +171,16 @@ in
 
   services.spotifyd = {
     enable = true;
-    settings = {
-      global = {
-        username = builtins.readFile ./spotifyuser;
-        password = builtins.readFile ./spotifypassword;
-      };
+    package = (pkgs.spotifyd.override { withKeyring = true; });
+    settings.global = {
+      use-keyring = true;
+      username = "13wqppx9ldotdtpcxpl89o810";
     };
   };
 
+  services.gnome-keyring = {
+    enable = true;
+  };
 
   #home.file.".dotfilesDir".source = "${config.home.file[".dotfiles"]}/.";
   #home.file.".dotfilesDir".target = dotfilesDir;
