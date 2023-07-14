@@ -11,6 +11,7 @@
       ./overlay-dwm.nix
       ./overlay-rust.nix
       ./systemd.nix
+      <home-manager/nixos>
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -237,7 +238,6 @@
   
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
-
 
 }
 

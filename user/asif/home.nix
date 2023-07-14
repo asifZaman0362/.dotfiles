@@ -7,6 +7,8 @@ let
   username = "asif";
 in
 {
+
+  nixpkgs.config.allowUnfree = true;
   # Let Home Manager install and manage itself:
   programs.home-manager.enable = true;
   
@@ -22,6 +24,8 @@ in
   home.stateVersion = "23.05";
   
   home.packages = with pkgs; [
+    scrot
+    go
     audacity
     gnome.gnome-boxes
     gimp
@@ -43,6 +47,9 @@ in
     gnome.seahorse
     libsecret
     pkg-config
+    OVMF
+    discord
+    betterdiscordctl
   ];
 
   home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -180,6 +187,15 @@ in
 
   services.gnome-keyring = {
     enable = true;
+  };
+  services.sxhkd = {
+    enable = true;
+    keybindings = {
+      "ctrl + alt + end" = "obs-cli 'Ending'";
+      "ctrl + alt + home" = "obs-cli 'Scene'";
+      "ctrl + alt + insert" = "obs-cli 'Starting'";
+      "ctrl + alt + del" = "obs-cli 'Idle'";
+    };
   };
 
   #home.file.".dotfilesDir".source = "${config.home.file[".dotfiles"]}/.";
