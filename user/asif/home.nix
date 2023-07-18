@@ -24,7 +24,10 @@ in
   home.stateVersion = "23.05";
   
   home.packages = with pkgs; [
+    vscode
+    kitty
     scrot
+    synergy
     go
     audacity
     gnome.gnome-boxes
@@ -50,6 +53,7 @@ in
     OVMF
     discord
     betterdiscordctl
+    neovide
   ];
 
   home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -63,6 +67,10 @@ in
         sensible
         gruvbox
     ];
+  };
+
+  programs.wofi = {
+    enable = true;
   };
 
   programs.gh.enable = true;
@@ -82,16 +90,16 @@ in
         less = "bat";
         python = "python3";
     };
-    #zplug = {
-    #    enable = true;
-    #    plugins = [
-    #        { name = "zsh-users/zsh-autosuggestions"; }
-    #        { name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
-    #        { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
-    #        { name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
-    #        { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
-    #    ];
-    #};
+    zplug = {
+        enable = true;
+        plugins = [
+            { name = "zsh-users/zsh-autosuggestions"; }
+            { name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
+            { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
+            { name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
+            { name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
+        ];
+    };
     oh-my-zsh = {
         enable = true;
         plugins = [ "git" "ssh-agent" ];
@@ -120,6 +128,24 @@ in
         tree-sitter
         nodePackages.prettier_d_slim
       ];
+  };
+
+  programs.kitty = {
+    enable = true;
+    settings = {
+        shellIntegrationZsh = true;
+        shell = "tmux";
+        background_transparency = "0.8";
+    };
+    font = {
+        name = "UbuntuMono Nerd Font";
+        size = 20;
+    };
+    theme = "Gruvbox Dark Hard";
+  };
+
+  programs.waybar = {
+    enable = true;
   };
 
   #home.file.".dotfiles".source = lib.cleanSource {
@@ -191,10 +217,11 @@ in
   services.sxhkd = {
     enable = true;
     keybindings = {
-      "ctrl + alt + end" = "obs-cli 'Ending'";
-      "ctrl + alt + home" = "obs-cli 'Scene'";
-      "ctrl + alt + insert" = "obs-cli 'Starting'";
-      "ctrl + alt + del" = "obs-cli 'Idle'";
+      "ctrl + alt + End" = "obs-cli 'Ending'";
+      "ctrl + alt + Home" = "obs-cli 'Scene'";
+      "ctrl + alt + Insert" = "obs-cli 'Starting'";
+      "ctrl + alt + Delete" = "obs-cli 'Idle'";
+      "alt + n" = "kitty";
     };
   };
 

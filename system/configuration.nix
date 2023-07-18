@@ -33,7 +33,8 @@
     allowedUDPPortRanges = [ 
       { from = 1714; to = 1764; } # KDE Connect
     ];  
-    allowedTCPPorts = [ 80 443 ];
+    allowedTCPPorts = [ 80 443 24800 ];
+    allowedUDPPorts = [ 24800 ];
   };
 
 
@@ -93,7 +94,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.sddm.enable = true;
   services.xserver.windowManager.dwm.enable = true;
 
   # Configure keymap in X11
@@ -131,7 +132,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.asif = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "adbusers" ]; # Enable ‘sudo’ for the user.
   #   packages = with pkgs; [
   #     firefox
   #     tree
@@ -140,7 +141,11 @@
   };
 
 
-  environment.variables = { EDITOR = "nvim"; VISUAL = "nvim"; };
+  environment.variables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
+    #WLR_NO_HARDWARE_CURSORS = "1";
+  };
 
   programs.zsh.enable = true;
 
@@ -210,6 +215,12 @@
     };
   };
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    nvidiaPatches = true;
+  };
+
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
@@ -217,6 +228,9 @@
 
   security.polkit.enable = true;
 
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
