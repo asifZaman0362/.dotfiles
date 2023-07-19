@@ -32,16 +32,10 @@ echo "$username password: "
 passwd $username
 
 # install services and other packages
-pacman -Syy sddm xorg-server hyprland plasma kde-applications firefox networkmanager neovim neovide openssh cmake make clang
+pacman -Syy sddm xorg-server hyprland plasma kde-applications firefox networkmanager neovim neovide openssh cmake make clang git
 
-# install yay
-cd /tmp
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-
-# install other packages
-yay -Syy xdg-desktop-portal-hyprland-git obs-studio wlrobs waybar-hyprland-git
-
+# enable services
 systemctl enable sddm
 systemctl enable NetworkManager
+
+exit

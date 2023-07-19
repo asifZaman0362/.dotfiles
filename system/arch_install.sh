@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if [ ! -f "arch_post_install.sh" ]; then
+    echo "not running inside '.dotfiles/system'! this will break. please run from inside the directory where this script is located"
+    exit -1
+fi
+
 timedatectl set-ntp true
 hwclock --systohc
 
@@ -39,4 +44,22 @@ cp ./arch_post_install.sh /mnt/post_install.sh
 chmod +x /mnt/post_install.sh
 
 # chroot into new system
-arch-chroot /mnt /bin/bash /tmp/arch_post_install.sh
+arch-chroot /mnt /bin/bash /arch_post_install.sh
+rm /mnt/arch_post_install.sh
+
+# copy post install user script into new system
+echo "Enter username: "
+read username
+cp ./user.sh /user.sh
+chmod +x /user.sh
+arch-chroot -u $username /mnt /user.sh
+
+rm /mnt/user.sh
+
+echo "Installation succeeded... Reboot (y/N)?"
+read answer
+if [ "$answer" = "y" ]; then
+    reboot
+else
+    exit
+fi

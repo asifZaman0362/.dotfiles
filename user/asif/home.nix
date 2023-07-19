@@ -142,7 +142,7 @@ in
         settings = {
             allow_markup = true;
         };
-        style = (builtins.readFile ./waybar.css);
+        style = (builtins.readFile ./wofi.css);
     };
 
     gtk.iconTheme = {
