@@ -15,6 +15,10 @@ echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 # install and configure grub
 pacman -Syy grub efibootmgr
+
+# enable drm modeset for nvidia GPUs to support wayland
+sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 nvidia-drm.modeset=1"/' /etc/default/grub
+
 grub-install --efi-directory=/boot
 grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -23,7 +27,7 @@ echo "Enter username: "
 read username
 useradd -m $username
 usermod -aG wheel
-echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers
+sed -i 's/# \(%wheel ALL=(ALL:ALL) ALL\)/\1/' /etc/sudoers
 
 # setup passwords
 echo "Root password: "
