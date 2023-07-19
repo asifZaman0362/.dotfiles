@@ -4,8 +4,7 @@ timedatectl set-ntp true
 hwclock --systohc
 
 # refresh mirrorlist and install git
-reflector
-pacman -Syy git
+reflector --save /etc/pacman.d/mirrorlist
 
 # prompt user to create paritions
 lsblk
@@ -21,7 +20,7 @@ echo "Name of boot partition:"
 read boot
 echo "Name of home partition:"
 read home
-read "Name of swap partition:"
+echo "Name of swap partition:"
 read swap
 mkfs.ext4 $root
 mkfs.ext4 $home
@@ -33,11 +32,14 @@ mount $boot -m /mnt/boot
 mount $home -m /mnt/home
 
 # install base and generate fstab
-pacstrap -K /mnt base base-devel linux linux-firmware nvidia
+pacstrap -K /mnt base base-devel linux linux-firmware nvidia reflector
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # chroot into new system
 arch-chroot /mnt
+
+# refresh mirrorlist inside new root
+reflector --save /etc/pacman.d/mirrorlist
 
 # set up timezone
 echo "Enter timezone (Region/City): "

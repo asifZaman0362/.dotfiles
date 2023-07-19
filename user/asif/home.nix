@@ -195,4 +195,16 @@ in
         '';
     };
 
+    systemd.user.services = {
+        home-server = {
+            Unit = {
+                Description = "Simple static webserver";
+            };
+            Service = {
+                Type = "exec";
+                ExecStart = "python3 -m http.server -d /home/asif/.dotfiles/user/asif/startpage-new 8000";
+            };
+        };
+    };
+
 }
