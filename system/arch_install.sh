@@ -50,11 +50,7 @@ rm /mnt/arch_post_install.sh
 # copy post install user script into new system
 echo "Enter username: "
 read username
-cp ./user.sh /user.sh
-chmod +x /user.sh
-arch-chroot -u $username /mnt /user.sh
-
-rm /mnt/user.sh
+cp -r ../../* /mnt/home/$username/.dotfiles
 
 echo "Installation succeeded... Reboot (y/N)?"
 read answer

@@ -32,7 +32,7 @@ echo "$username password: "
 passwd $username
 
 # install services and other packages
-pacman -Syy sddm xorg-server hyprland plasma kde-applications firefox networkmanager neovim neovide openssh cmake make clang git
+pacman -Syy sddm xorg-server hyprland plasma kde-applications firefox networkmanager neovim neovide openssh cmake make clang
 
 # enable services
 systemctl enable sddm
