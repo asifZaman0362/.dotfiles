@@ -11,7 +11,7 @@ require("gruvbox").setup({
     bold = true,
     strikethrough = true,
     contrast = "medium",
-    transparent_mode = false,
+    transparent_mode = true,
     background = "light",
     italic = {
         strings = true,
@@ -22,10 +22,13 @@ require("gruvbox").setup({
 require("tokyonight").setup({
     transparent = true
 })
+require("telescope").load_extension("opener")
 require("inlay-hints").setup()
 local ih = require("inlay-hints")
 require("nvim-tree").setup()
-require("mason").setup {}
+require("mason").setup {
+    ensure_installed = { "emmet-ls" }
+}
 require "lspconfig".rust_analyzer.setup {}
 require "lspconfig".clangd.setup({
     on_attach = function(c, b)
@@ -367,3 +370,4 @@ require("transparent").setup({
     extra_groups = {},   -- table: additional groups that should be cleared
     exclude_groups = {}, -- table: groups you don't want to clear
 })
+require 'alpha'.setup(require 'alpha.themes.dashboard'.config)

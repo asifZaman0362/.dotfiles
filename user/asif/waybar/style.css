@@ -1,0 +1,51 @@
+window#waybar {
+    font-family: "PT Sans", "Product Sans";
+    font-size: 18px;
+    background: #1d2021;
+    color: #fdf1c7;
+}
+
+* {
+    color: #fdf1c7;
+    background: #1d2021;
+    font-weight: bold;
+}
+
+#cpu {
+    color: #fb4934;
+}
+
+#memory {
+    color: #eebd35;
+}
+
+#clock {
+    color: #8ec07c;
+}
+
+#network {
+    color: #7fa2ac;
+}
+
+#pulseaudio {
+    color: #d4879c;
+}
+
+#workspaces button {
+    padding: 0 10px 0 10px;
+    transition: 0.5s;
+}
+
+#workspaces button * {
+    transition: 0.5s;
+}
+
+#workspaces button.active {
+    background: #383838;
+    border-bottom: 1px solid #d4879c;
+}
+
+#workspaces button.active * {
+    background: #383838;
+    color: #d4879c;
+}

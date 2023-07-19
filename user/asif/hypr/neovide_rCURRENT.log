@@ -1,0 +1,2 @@
+TRACE [neovide] Neovide version: 0.10.4
+DEBUG [neovide::bridge::command] Starting neovim with: Command { std: "/usr/bin/nvim" "--embed" "-p", kill_on_drop: false }

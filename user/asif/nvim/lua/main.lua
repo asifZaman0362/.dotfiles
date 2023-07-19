@@ -32,13 +32,14 @@ require('plugin_config')
 vim.o.background = "dark"
 
 -- Key bindings
-utils.map('n', "<Leader>t", ":NvimTreeToggle <CR>", { noremap = true })
+utils.map('n', "<Leader>t", ":Neotree toggle <CR>", { noremap = true })
 utils.map('n', "<Leader>h", ":noh<CR>", { noremap = true })
 utils.map('n', "<Leader>fF", ":Telescope git_files<CR>", { noremap = true })
 utils.map('n', "<Leader>ff", ":Telescope find_files<CR>", { noremap = true })
 utils.map('n', "<Leader>fg", ":Telescope live_grep<CR>", { noremap = true })
 utils.map('n', "<Leader>fb", ":Telescope buffers<CR>", { noremap = true })
 utils.map('n', "<Leader>fh", ":Telescope help_tags<CR>", { noremap = true })
+utils.map('n', "<Leader>fo", ":Telescope opener<CR>", { noremap = true })
 utils.map('n', "<Leader>F", ":! rustfmt %<CR>", { noremap = true })
 utils.map('n', "<Leader>s", ":vsplit<CR>", { noremap = true });
 utils.map('n', "<Leader>S", ":split<CR>", { noremap = true });
@@ -277,3 +278,4 @@ vim.cmd([[colorscheme gruvbox]])
 vim.cmd([[set nofoldenable]])
 vim.opt.foldmethod = "indent"
 vim.diagnostic.config({ virtual_text = true })
+vim.g.nvim_tree_respect_buf_cwd = 1

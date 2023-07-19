@@ -75,6 +75,17 @@ return require("packer").startup(function(use)
     use "xiyaowong/transparent.nvim"
     use({ 'rose-pine/neovim', as = 'rose-pine' })
     use 'LhKipp/nvim-nu'
+    use "willthbill/opener.nvim"
+    use 'goolord/alpha-nvim'
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
+    }
     if packer_bootstrap then
         require('packer').sync()
     end
