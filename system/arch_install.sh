@@ -9,8 +9,7 @@ reflector --save /etc/pacman.d/mirrorlist
 # prompt user to create paritions
 lsblk
 echo "Enter disk name to partition:"
-read diskname
-cfdisk $diskname
+read diskname cfdisk $diskname
 
 # format and mount partitions
 lsblk
@@ -35,51 +34,9 @@ mount $home -m /mnt/home
 pacstrap -K /mnt base base-devel linux linux-firmware nvidia reflector
 genfstab -U /mnt >> /mnt/etc/fstab
 
+# copy post install script into new system
+cp ./arch_post_install.sh /mnt/post_install.sh
+chmod +x /mnt/post_install.sh
+
 # chroot into new system
-arch-chroot /mnt
-
-# refresh mirrorlist inside new root
-reflector --save /etc/pacman.d/mirrorlist
-
-# set up timezone
-echo "Enter timezone (Region/City): "
-read zone
-ln -sf "/etc/zoneinfo/$zone" /etc/localtime
-
-# setup locale
-sed -i 's/en_US.UTF-8' /etc/locale.gen
-locale-gen
-echo "LANG=en_US.UTF-8" > /etc/locale.conf
-
-# install and configure grub
-pacman -Syy grub efibootmgr
-grub-install --efi-directory=/boot
-grub-mkconfig -o /boot/grub/grub.cfg
-
-# create user
-echo "Enter username: "
-read username
-useradd -m $username
-usermod -aG wheel
-echo "%wheel ALL=(ALL:ALL) ALL" > /etc/sudoers
-
-# setup passwords
-echo "Root password: "
-passwd
-echo "$username password: "
-passwd $username
-
-# install services and other packages
-pacman -Syy sddm xorg-server hyprland plasma kde-applications firefox networkmanager neovim neovide openssh cmake make clang
-
-# install yay
-cd /tmp
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-
-# install other packages
-yay -Syy xdg-desktop-portal-hyprland-git obs-studio wlrobs waybar-hyprland-git
-
-systemctl enable sddm
-systemctl enable NetworkManager
+arch-chroot /mnt /bin/bash /tmp/arch_post_install.sh
