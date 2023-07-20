@@ -14,10 +14,12 @@ locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 # install and configure grub
-pacman -Syy grub efibootmgr
+pacman -Syy grub efibootmgr os-prober
 
 # enable drm modeset for nvidia GPUs to support wayland
 sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT\)="\(.*\)"/\1="\2 nvidia-drm.modeset=1"/' /etc/default/grub
+# also enable OS prober
+sed -i 's/#\(GRUB_DISABLE_OS_PROBER=false\)/\1/' /etc/default/grub
 
 grub-install --efi-directory=/boot
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -36,7 +38,7 @@ echo "$username password: "
 passwd $username
 
 # install services and other packages
-pacman -Syy sddm xorg-server hyprland plasma kde-applications firefox networkmanager neovim neovide openssh cmake make clang
+pacman -Syy sddm xorg-server hyprland firefox networkmanager neovim neovide openssh cmake make clang
 
 # enable services
 systemctl enable sddm
