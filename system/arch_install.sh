@@ -52,7 +52,7 @@ rm /mnt/post_install.sh
 # copy post install user script into new system
 echo "Enter username: "
 read username
-cp -r ../* /mnt/home/$username/.dotfiles
+cp -r ../../.dotfiles /mnt/home/$username/.dotfiles
 
 echo "Installation succeeded... Reboot (y/N)?"
 read answer
