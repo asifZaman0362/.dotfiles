@@ -45,7 +45,7 @@ echo "$username password: "
 passwd $username
 
 # install services and other packages
-pacman -Syy sddm xorg-server hyprland firefox kitty zsh networkmanager neovim neovide openssh cmake make clang
+pacman -Syy sddm xorg-server hyprland firefox kitty zsh networkmanager neovim openssh cmake make clang
 
 # enable services
 systemctl enable NetworkManager

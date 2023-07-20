@@ -9,7 +9,8 @@ makepkg -si
 sudo pacman -R git
 
 # install other packages
-yay -Syy xdg-desktop-portal-hyprland-git obs-studio wlrobs waybar-hyprland-git ttf-pt-sans
+yay -Syy xdg-desktop-portal-hyprland-git obs-studio wlrobs waybar-hyprland-git ttf-pt-sans neovide-git
+sudo pacman -R xdg-desktop-portal-gnome
 
 # install nix and home manager
 sh <(curl -L https://nixos.org/nix/install) --daemon
