@@ -53,10 +53,11 @@ in
         enable = true;
         keyMode = "vi";
         mouse = true;
-        plugins = with pkgs.tmuxPlugins; [ 
+        terminal = "xterm-256color";
+        plugins = with pkgs.tmuxPlugins; [
             battery
             sensible
-            gruvbox
+            # gruvbox
         ];
     };
 
@@ -124,12 +125,12 @@ in
 
     programs.kitty = {
         enable = true;
-        font.size = 20;
-        font.name = "FantasqueSansM Nerd Font";
+        font.size = 16;
+        font.name = "Courier Prime";
         shellIntegration = {
             enableZshIntegration = true;
         };
-        theme = "Gruvbox Dark Hard";
+        theme = "Black Metal";
         settings = {
             shell = "tmux";
             editor = "nvim";

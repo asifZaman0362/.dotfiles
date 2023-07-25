@@ -8,18 +8,18 @@ env:
   TERM: xterm-256color
 font:
   normal:
-    family: UbuntuMono Nerd Font
+    family: Courier Prime
     style: Regular
 
   bold:
-    family: UbuntuMono Nerd Font
+    family: Courier Prime
     style: Bold
 
   italic:
-    family: UbuntuMono Nerd Font
+    family: Courier Prime
     style: Italic
 
   bold_italic:
-    family: UbuntuMono Nerd Font
+    family: Courier Prime
     style: Bold Italic
-  size: 22
+  size: 20

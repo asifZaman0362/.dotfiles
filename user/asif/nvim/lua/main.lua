@@ -274,8 +274,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 vim.cmd([[highlight! link LspInlayHint Comment]])
-vim.cmd([[colorscheme gruvbox]])
+--vim.cmd([[colorscheme noirbuddy]])
 vim.cmd([[set nofoldenable]])
 vim.opt.foldmethod = "indent"
 vim.diagnostic.config({ virtual_text = true })
 vim.g.nvim_tree_respect_buf_cwd = 1
+require('noirbuddy').setup {
+    preset = 'slate',
+    styles = {
+        italic = true,
+        bold = true,
+        underline = true,
+        undercurl = true,
+    }
+}

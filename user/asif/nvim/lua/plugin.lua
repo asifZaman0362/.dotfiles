@@ -86,6 +86,10 @@ return require("packer").startup(function(use)
             "MunifTanjim/nui.nvim",
         }
     }
+    use {
+        "jesseleite/nvim-noirbuddy",
+        requires = { "tjdevries/colorbuddy.nvim", branch = "dev" }
+    }
     if packer_bootstrap then
         require('packer').sync()
     end
