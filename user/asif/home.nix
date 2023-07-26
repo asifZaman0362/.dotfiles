@@ -38,7 +38,6 @@ in
         trash-cli
         zsh-powerlevel10k
         nix-prefetch-git
-        tmux
         ffmpeg
         vlc
         discord
@@ -54,11 +53,7 @@ in
         keyMode = "vi";
         mouse = true;
         terminal = "xterm-256color";
-        plugins = with pkgs.tmuxPlugins; [
-            battery
-            sensible
-            # gruvbox
-        ];
+        extraConfig = (builtins.readFile ./.tmux.conf);
     };
 
     programs.gh.enable = true;
@@ -126,11 +121,11 @@ in
     programs.kitty = {
         enable = true;
         font.size = 16;
-        font.name = "Courier Prime";
+        font.name = "UbuntuMono Nerd Font";
         shellIntegration = {
             enableZshIntegration = true;
         };
-        theme = "Black Metal";
+        theme = "Rosé Pine";
         settings = {
             shell = "tmux";
             editor = "nvim";

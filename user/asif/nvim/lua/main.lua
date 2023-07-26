@@ -171,7 +171,7 @@ local keymap = vim.keymap.set
 -- If there is no definition, it will instead be hidden
 -- When you use an action in finder like "open vsplit",
 -- you can use <C-t> to jump back
-keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
+keymap("n", "gh", "<cmd>Lspsaga finder<CR>")
 
 -- Code action
 keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
@@ -274,17 +274,17 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 vim.cmd([[highlight! link LspInlayHint Comment]])
---vim.cmd([[colorscheme noirbuddy]])
+vim.cmd([[colorscheme rose-pine]])
 vim.cmd([[set nofoldenable]])
 vim.opt.foldmethod = "indent"
 vim.diagnostic.config({ virtual_text = true })
 vim.g.nvim_tree_respect_buf_cwd = 1
-require('noirbuddy').setup {
-    preset = 'slate',
-    styles = {
-        italic = true,
-        bold = true,
-        underline = true,
-        undercurl = true,
-    }
-}
+--require('noirbuddy').setup {
+--    preset = 'slate',
+--    styles = {
+--        italic = true,
+--        bold = true,
+--        underline = true,
+--        undercurl = true,
+--    }
+--}

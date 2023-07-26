@@ -71,7 +71,14 @@ return require("packer").startup(function(use)
     use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
     use 'nvim-treesitter/nvim-treesitter-context'
     use "lukas-reineke/indent-blankline.nvim"
-    use { 'glepnir/lspsaga.nvim' }
+    --use { 'glepnir/lspsaga.nvim' }
+    use({
+        'nvimdev/lspsaga.nvim',
+        after = 'nvim-lspconfig',
+        config = function()
+            require('lspsaga').setup({})
+        end,
+    })
     use "xiyaowong/transparent.nvim"
     use({ 'rose-pine/neovim', as = 'rose-pine' })
     use 'LhKipp/nvim-nu'
