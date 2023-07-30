@@ -1,34 +1,34 @@
 window#waybar {
     font-family: "PT Sans", "Product Sans";
     font-size: 18px;
-    background: #1d2021;
-    color: #fdf1c7;
+    background: #191724;
+    color: #e0def4;
 }
 
 * {
-    color: #fdf1c7;
-    background: #1d2021;
+    color: #e0def4;
+    background: #191724;
     font-weight: bold;
 }
 
 #cpu {
-    color: #fb4934;
+    color: #eb6f92;
 }
 
 #memory {
-    color: #eebd35;
+    color: #f6c177;
 }
 
 #clock {
-    color: #8ec07c;
+    color: #31748f;
 }
 
 #network {
-    color: #7fa2ac;
+    color: #9ccfd8;
 }
 
 #pulseaudio {
-    color: #d4879c;
+    color: #c4a7e7;
 }
 
 #workspaces button {
@@ -41,11 +41,11 @@ window#waybar {
 }
 
 #workspaces button.active {
-    background: #383838;
-    border-bottom: 1px solid #d4879c;
+    background: #26233a;
+    border-bottom: 1px solid #c4a7e7;
 }
 
 #workspaces button.active * {
-    background: #383838;
-    color: #d4879c;
+    background: #26233a;
+    color: #c4a7e7;
 }
