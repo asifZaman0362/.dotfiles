@@ -2,8 +2,7 @@
 
 let
     homeDir = "/home/asif";
-    username = "asif";
-in
+    username = "asif"; in
 {
     # allow using unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -21,6 +20,12 @@ in
     # You can update Home Manager without changing this value.
     # See the Home Manager release notes for a list of state version changes in each release.
     home.stateVersion = "23.05";
+
+    nixpkgs.overlays = [
+      (import (builtins.fetchTarball {
+        url = "https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz";
+      }))
+    ];
 
     # programs to install for the current user
     home.packages = with pkgs; [
@@ -44,6 +49,7 @@ in
         betterdiscordctl
         rustup
         imagemagick
+        nil
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -91,37 +97,17 @@ in
         '';
     };
 
-    programs.neovim = {
-        enable = true;
-        viAlias = true;
-        vimAlias = true;
-        withNodeJs = true;
-        withPython3 = true;
-        defaultEditor = true;
-        extraPackages = with pkgs; [
-          nodePackages.pyright
-          nodePackages.typescript
-          nodePackages.typescript-language-server
-          shfmt
-          sumneko-lua-language-server
-          tree-sitter
-          nodePackages.prettier_d_slim
-        ];
-    };
-
     home.file.".scripts".source = ./scripts;
     home.file.".Xresources".source = ./.Xresources;
 
-    xdg.configFile."nvim/init.lua".source = ./nvim/init.lua;
-    xdg.configFile."nvim/lua".source = ./nvim/lua;
     xdg.configFile."alacritty".source = ./alacritty;
     xdg.configFile."hypr".source = ./hypr;
     xdg.configFile."waybar".source = ./waybar;
 
     programs.kitty = {
         enable = true;
-        font.size = 16;
-        font.name = "UbuntuMono Nerd Font";
+        font.size = 13;
+        font.name = "Jetbrains Mono";
         shellIntegration = {
             enableZshIntegration = true;
         };
@@ -202,5 +188,62 @@ in
             };
         };
     };
+    programs.neovim = {
+        enable = true;
+        package = pkgs.neovim-nightly;
+        defaultEditor = true;
+        extraConfig = (builtins.readFile ./init.vim);
+        extraPackages = with pkgs; [
+          lua-language-server
+          nodePackages.pyright
+          nodePackages.typescript
+          nodePackages.typescript-language-server
+          shfmt
+          sumneko-lua-language-server
+          tree-sitter
+          nodePackages.prettier_d_slim
+        ];
+        plugins = with pkgs.vimPlugins; [
+          telescope-nvim
+          mason-nvim
+          toggleterm-nvim
+          nvim-treesitter
+          neogit
+          nvim-lspconfig
+          emmet-vim
+          rust-tools-nvim
+          nvim-treesitter-context
+          nvim-treesitter-parsers.nix
+          nvim-treesitter-parsers.c
+          nvim-treesitter-parsers.cpp
+          nvim-treesitter-parsers.rust
+          nvim-treesitter-parsers.html
+          nvim-treesitter-parsers.markdown
+          nvim-treesitter-parsers.markdown_inline
+          nvim-treesitter-parsers.typescript
+          nvim-treesitter-parsers.javascript
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-path
+          cmp-vsnip
+          cmp-zsh
+          cmp-rg
+          cmp-git
+          cmp-buffer
+          cmp-nvim-lua
+          cmp-nvim-lsp-signature-help
+          cmp-nvim-lsp-document-symbol
+          nvim-tree-lua
+          rose-pine
+          lualine-nvim
+          neogit
+          nvim-dap
+          nvim-dap-ui
+          nvim-dap-virtual-text
+          gitsigns-nvim
+          git-blame-nvim
+        ];
+  };
+    
 
 }
