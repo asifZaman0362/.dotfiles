@@ -38,7 +38,7 @@ require'rose-pine'.setup({
   disable_italics = true
 })
 require'mason'.setup {
-    ensure_installed = { "emmet-ls", "clangd", "tsserver", "pyright" }
+    ensure_installed = { "emmet-ls", "clangd", "tsserver", "pyright", "codelldb", "lua-language-server" }
 }
 local cmp = require 'cmp'
 cmp.setup({
