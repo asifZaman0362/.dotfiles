@@ -29,27 +29,9 @@ let
 
     # programs to install for the current user
     home.packages = with pkgs; [
-        scrot
-        go
-        audacity
-        gimp
-        jack2
-        nodejs_20
-        gh
-        ripgrep
-        fd
-        exa
-        bat
-        trash-cli
-        zsh-powerlevel10k
-        nix-prefetch-git
-        ffmpeg
-        vlc
-        discord
-        betterdiscordctl
-        rustup
-        imagemagick
-        nil
+        scrot go audacity gimp jack2 nodejs_20 gh ripgrep
+        fd exa bat trash-cli zsh-powerlevel10k nix-prefetch-git ffmpeg
+        vlc discord betterdiscordctl rustup imagemagick nil
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -88,7 +70,6 @@ let
                 { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
                 { name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
                 { name = "jeffreytse/zsh-vi-mode"; }
-                #{ name = "romkatv/powerlevel10k"; tags = [ as:theme depth:1 ]; }
             ];
         };
         initExtra = ''
@@ -143,19 +124,6 @@ let
 
     services.network-manager-applet.enable = true;
 
-    #services.picom = {
-    #    enable = true;
-    #    fade = true;
-    #    backend = "glx";
-    #    vSync = true;
-    #    settings = {
-    #        blur = {
-    #            method = "dual_kawase";
-    #            strength = 5;
-    #        };
-    #    };
-    #};
-
     services.gnome-keyring = {
         enable = true;
     };
@@ -188,6 +156,7 @@ let
             };
         };
     };
+
     programs.neovim = {
         enable = true;
         package = pkgs.neovim-nightly;
@@ -204,44 +173,19 @@ let
           nodePackages.prettier_d_slim
         ];
         plugins = with pkgs.vimPlugins; [
-          telescope-nvim
-          mason-nvim
-          toggleterm-nvim
-          nvim-treesitter
-          neogit
-          nvim-lspconfig
-          emmet-vim
-          rust-tools-nvim
-          nvim-treesitter-context
-          nvim-treesitter-parsers.nix
-          nvim-treesitter-parsers.c
-          nvim-treesitter-parsers.cpp
-          nvim-treesitter-parsers.rust
-          nvim-treesitter-parsers.html
-          nvim-treesitter-parsers.markdown
-          nvim-treesitter-parsers.markdown_inline
-          nvim-treesitter-parsers.typescript
-          nvim-treesitter-parsers.javascript
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-path
-          cmp-vsnip
-          cmp-zsh
-          cmp-rg
-          cmp-git
-          cmp-buffer
-          cmp-nvim-lua
-          cmp-nvim-lsp-signature-help
-          cmp-nvim-lsp-document-symbol
-          nvim-tree-lua
-          rose-pine
-          lualine-nvim
-          neogit
-          nvim-dap
-          nvim-dap-ui
-          nvim-dap-virtual-text
-          gitsigns-nvim
-          git-blame-nvim
+          telescope-nvim mason-nvim toggleterm-nvim nvim-treesitter neogit
+          nvim-lspconfig emmet-vim rust-tools-nvim 
+
+          nvim-treesitter-context nvim-treesitter-parsers.nix nvim-treesitter-parsers.c
+          nvim-treesitter-parsers.cpp nvim-treesitter-parsers.rust nvim-treesitter-parsers.html
+          nvim-treesitter-parsers.markdown nvim-treesitter-parsers.markdown_inline 
+          nvim-treesitter-parsers.typescript nvim-treesitter-parsers.javascript
+
+          nvim-cmp cmp-nvim-lsp cmp-path cmp-vsnip cmp-zsh cmp-rg cmp-git cmp-buffer 
+          cmp-nvim-lua cmp-nvim-lsp-signature-help cmp-nvim-lsp-document-symbol
+
+          nvim-tree-lua rose-pine lualine-nvim neogit nvim-dap nvim-dap-ui nvim-dap-virtual-text
+          gitsigns-nvim git-blame-nvim lspsaga-nvim
         ];
   };
     

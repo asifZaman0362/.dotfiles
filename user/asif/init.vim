@@ -164,16 +164,35 @@ require'toggleterm'.setup{}
 require'nvim-tree'.setup{}
 require'neogit'.setup{}
 require'lualine'.setup{}
+
+local sign = function(opts)
+    vim.fn.sign_define(opts.name, {
+        texthl = opts.name,
+        text = opts.text,
+        numhl = ''
+    })
+end
+
+sign({ name = 'DiagnosticSignError', text = '' })
+sign({ name = 'DiagnosticSignWarn', text = '' })
+sign({ name = 'DiagnosticSignHint', text = '󰛨' })
+sign({ name = 'DiagnosticSignInfo', text = '' })
+
 EOF
 
-noremap gr :lua vim.lsp.buf.references()<CR>
-noremap gR :lua vim.lsp.buf.rename()<CR>
+noremap gR :lua vim.lsp.buf.references()<CR>
+noremap gr :lua vim.lsp.buf.rename()<CR>
 noremap gd :lua vim.lsp.buf.definition()<CR>
+noremap gi :lua vim.lsp.buf.implementation()<CR>
+noremap gD :lua vim.lsp.buf.declaration()<CR>
 noremap gc :lua vim.lsp.buf.code_action()<CR>
-noremap gh :lua vim.lsp.buf.hover()<CR>
+noremap K  :Lspsaga hover_doc<CR>
+noremap gh :Lspsaga lsp_finder<CR>
 noremap gf :lua vim.lsp.buf.format()<CR>
 noremap gs :lua vim.lsp.buf.signature_help()<CR>
 noremap <leader>e :lua vim.diagnostic.open_float()<CR>
+noremap <A-d> :Lspsaga toggle_floaterm<CR>
+tnoremap <A-d> <c-\><c-n>:Lspsaga toggle_floaterm<CR>
 " set
 autocmd TermEnter term://*toggleterm#*
       \ tnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
@@ -237,6 +256,76 @@ dap.configurations.cpp = {
     },
     require("dapui").setup()
 }
+
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    update_in_insert = true,
+    underline = true,
+    severity_sort = false,
+    float = {
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = '',
+    },
+})
+
+require('lualine').setup {
+    options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '>', right = '<' },
+        section_separators = { left = ':', right = '=:' },
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
+    },
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+}
 EOF
+
+autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType javascriptreact setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType nix setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType lua setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType html setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType vim setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType typescript setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType typescriptreact setlocal shiftwidth=2 softtabstop=2 expandtab
+
+set signcolumn=yes
+autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+
+set nofoldenable
+set foldmethod=indent
 
 colorscheme rose-pine
