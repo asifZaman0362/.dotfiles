@@ -127,6 +127,7 @@ require "lspconfig".pyright.setup({})
 require "lspconfig".lua_ls.setup({})
 require "lspconfig".glslls.setup({})
 require "lspconfig".nil_ls.setup({})
+require "lspconfig".emmet_ls.setup({})
 require "lspconfig".tsserver.setup({
     settings = {
         typescript = {

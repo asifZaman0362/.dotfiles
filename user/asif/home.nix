@@ -97,7 +97,7 @@ let
             shell = "tmux";
             editor = "nvim";
         };
-        extraConfig = "background_opacity 0.9";
+        extraConfig = "background_opacity 1.0";
     };
 
     programs.wofi = {
@@ -182,7 +182,7 @@ let
           nvim-treesitter-parsers.typescript nvim-treesitter-parsers.javascript
 
           nvim-cmp cmp-nvim-lsp cmp-path cmp-vsnip cmp-zsh cmp-rg cmp-git cmp-buffer 
-          cmp-nvim-lua cmp-nvim-lsp-signature-help cmp-nvim-lsp-document-symbol
+          cmp-nvim-lua cmp-nvim-lsp-signature-help cmp-nvim-lsp-document-symbol vim-vsnip
 
           nvim-tree-lua rose-pine lualine-nvim neogit nvim-dap nvim-dap-ui nvim-dap-virtual-text
           gitsigns-nvim git-blame-nvim lspsaga-nvim
