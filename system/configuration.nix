@@ -8,8 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-      ./overlay-dwm.nix
-      ./overlay-rust.nix
       ./systemd.nix
       <home-manager/nixos>
     ];
@@ -63,6 +61,9 @@
   # NVIDIA drivers are unfree.
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
+      "steam"
+      "steam-original"
+      "steam-run"
       "nvidia-x11"
       "nvidia"
       "nvidia-settings"
@@ -75,11 +76,11 @@
   hardware.nvidia = {
 
     # Modesetting is needed for most wayland compositors
-    modesetting.enable = true;
+    #modesetting.enable = true;
 
     # Use the open source version of the kernel module
     # Only available on driver 515.43.04+
-    open = true;
+    #open = true;
 
     # Enable the nvidia settings menu
     nvidiaSettings = true;
@@ -95,7 +96,16 @@
   services.xserver.enable = true;
 
   services.xserver.displayManager.sddm.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
+  #services.xserver.windowManager.dwm.enable = true;
+  services.xserver.windowManager.i3 = {
+    package = pkgs.i3-gaps;
+    enable = true;
+    extraPackages = with pkgs; [
+      dmenu
+      i3lock
+    ];
+  };
+  services.xserver.desktopManager.plasma5.enable = true;
 
   # Configure keymap in X11
   services.xserver.layout = "us";
@@ -152,6 +162,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    killall
     virt-manager
     wget
     git
@@ -164,38 +175,30 @@
     gcc
     cinnamon.nemo-with-extensions
     python3
-    alacritty
-    zsh
     dmenu
+    polybar
     firefox
     home-manager
     feh
     obs-studio
     obsidian
     obs-studio-plugins.input-overlay
-    #(fenix.complete.withComponents [
-    #    "cargo"
-    #    "clippy"
-    #    "rust-src"
-    #    "rustc"
-    #    "rustfmt"
-    #])
-    #rust-analyzer
     rustup
     mate.mate-polkit
     cmake
     dwmblocks
     nitrogen
     static-web-server
+    lxappearance
   ];
 
 
   fonts.fonts = with pkgs; [
 	(nerdfonts.override { fonts = [ "FiraCode" "Hack" "UbuntuMono" ]; })
 	jetbrains-mono
+    martian-mono
   ];
 
-  environment.shells = with pkgs; [ zsh ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -206,20 +209,11 @@
   };
   #programs.nm-applet.enable = true;
 
-  programs.zsh = {
-    syntaxHighlighting.enable = true;
-    enableCompletion = true;
-    autosuggestions = {
-      enable = true;
-      async = true;
-    };
-  };
-
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    nvidiaPatches = true;
-  };
+  #programs.hyprland = {
+  #  enable = true;
+  #  xwayland.enable = true;
+  #  nvidiaPatches = true;
+  #};
 
   # List services that you want to enable:
 
@@ -233,14 +227,6 @@
   ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -252,6 +238,12 @@
   
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  };
 
 }
 

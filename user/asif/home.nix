@@ -31,7 +31,7 @@ let
     home.packages = with pkgs; [
         scrot go audacity gimp jack2 nodejs_20 gh ripgrep
         fd exa bat trash-cli zsh-powerlevel10k nix-prefetch-git ffmpeg
-        vlc discord betterdiscordctl rustup imagemagick nil
+        vlc discord betterdiscordctl rustup imagemagick nil picom
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -81,14 +81,16 @@ let
     home.file.".scripts".source = ./scripts;
     home.file.".Xresources".source = ./.Xresources;
 
-    xdg.configFile."alacritty".source = ./alacritty;
-    xdg.configFile."hypr".source = ./hypr;
-    xdg.configFile."waybar".source = ./waybar;
+    xdg.configFile."picom.conf".source = ./picom.conf;
+    #xdg.configFile."hypr".source = ./hypr;
+    #xdg.configFile."waybar".source = ./waybar;
+    xdg.configFile."i3".source = ./i3;
+    xdg.configFile."polybar".source = ./polybar;
 
     programs.kitty = {
         enable = true;
         font.size = 13;
-        font.name = "Jetbrains Mono";
+        font.name = "Martian Mono";
         shellIntegration = {
             enableZshIntegration = true;
         };
@@ -97,16 +99,16 @@ let
             shell = "tmux";
             editor = "nvim";
         };
-        extraConfig = "background_opacity 1.0";
+        extraConfig = "background_opacity 0.6";
     };
 
-    programs.wofi = {
-        enable = true;
-        settings = {
-            allow_markup = true;
-        };
-        style = (builtins.readFile ./wofi.css);
-    };
+    #programs.wofi = {
+    #    enable = true;
+    #    settings = {
+    #        allow_markup = true;
+    #    };
+    #    style = (builtins.readFile ./wofi.css);
+    #};
 
     gtk.iconTheme = {
         package = pkgs.gruvbox-dark-icons-gtk;
@@ -131,19 +133,16 @@ let
     services.sxhkd = {
         enable = true;
         keybindings = {
-            "ctrl + alt + end" = "obs-cli 'Ending'";
-            "ctrl + alt + home" = "obs-cli 'Scene'";
-            "ctrl + alt + insert" = "obs-cli 'Starting'";
-            "ctrl + alt + del" = "obs-cli 'Idle'";
+            "alt + Return" = "kitty";
         };
     };
 
-    xsession = {
-        enable = true;
-        profileExtra = ''
-            home-server
-        '';
-    };
+    #xsession = {
+    #    enable = true;
+    #    profileExtra = ''
+    #        home-server
+    #    '';
+    #};
 
     systemd.user.services = {
         home-server = {
@@ -188,6 +187,22 @@ let
           gitsigns-nvim git-blame-nvim lspsaga-nvim
         ];
   };
-    
+
+  programs.librewolf = {
+    enable = true;
+    settings = {
+      "webgl.disabled" = false;
+      "privacy.resistFingerprinting" = false;
+      "privacy.clearOnShutdown.history" = false;
+      "privacy.clearOnShutdown.cookies" = false;
+      "network.cookie.lifetimePolicy" = 0;
+      "extensions.update.autoUpdateDefault" = true;
+      "extensions.update.enabled" = true;
+      "identity.fxaccounts.enabled" = true;
+      "middlemouse.paste" = false;
+      "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+      "general.useragent.compatMode.firefox" = true;
+    };
+  };
 
 }

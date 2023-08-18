@@ -1,4 +1,12 @@
 #!/bin/sh
+
+colbg='#191724'
+colfg='#e0def4'
+col1='#eb6f92'
+col2='#f6c177'
+col3='#c4a7e7'
+col4='#9ccfd8'
+
 function update {
     total_mem=$(free -h | grep "Mem:" | awk '{ print $2 }')
     used_mem=$(free -h | grep "Mem:" | awk '{ print $3 }')
@@ -16,7 +24,7 @@ function update {
 
     date="󰃭 $(date '+%a, %b %d')"
 
-    status="^b#fabd2f^^c#282828^ $mem ^b#8ec07c^ $root ^b#7fa2ac^ $date ^b#d4879c^ $time "
+    status="^b$colbg^^c$col1^ $mem ^c$col2^ $root ^c$col3^ $date ^c$col4^ $time "
     xsetroot -name "$status"
 }
 
