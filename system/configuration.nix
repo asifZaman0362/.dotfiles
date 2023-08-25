@@ -94,24 +94,44 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-
-  services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.windowManager.dwm.enable = true;
   services.xserver.windowManager.i3 = {
     package = pkgs.i3-gaps;
     enable = true;
     extraPackages = with pkgs; [
       dmenu
+      picom
       i3lock
     ];
   };
-  services.xserver.desktopManager.plasma5.enable = true;
+
+  services.xserver.displayManager.sddm.enable = true;
+  #services.xserver.windowManager.dwm.enable = true;
 
   # Configure keymap in X11
   services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
 
-  #services.picom.enable = true;
+  services.picom = {
+    enable = true;
+    settings = {
+      blur = {
+        method = "dual_kawase";
+        strength = 10;
+      };
+      blurBackgroundExclude = [
+          "class_g = 'librewolf'"
+          "class_g = 'firefox'"
+      ];
+    };
+    shadowExclude = [
+      "window_type *= 'menu'"
+      "name ~= 'Firefox$'"
+      "focused = 1"
+    ];
+    vSync = true;
+    backend = "glx";
+    menuOpacity = 1.0;
+  };
 
   services.geoclue2.enable = true;
   location.provider = "geoclue2";
@@ -150,6 +170,10 @@
     shell = pkgs.zsh;
   };
 
+  users.users.guest = {
+    isNormalUser = true;
+  };
+
 
   environment.variables = {
     EDITOR = "nvim";
@@ -163,6 +187,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     killall
+    lutris
     virt-manager
     wget
     git
@@ -177,7 +202,6 @@
     python3
     dmenu
     polybar
-    firefox
     home-manager
     feh
     obs-studio
@@ -190,6 +214,9 @@
     nitrogen
     static-web-server
     lxappearance
+    scrot go audacity gimp jack2 nodejs_20 gh ripgrep
+    fd exa bat trash-cli nix-prefetch-git ffmpeg
+    vlc rustup imagemagick nil lldb gnumake kdevelop
   ];
 
 

@@ -29,9 +29,12 @@ let
 
     # programs to install for the current user
     home.packages = with pkgs; [
-        scrot go audacity gimp jack2 nodejs_20 gh ripgrep
-        fd exa bat trash-cli zsh-powerlevel10k nix-prefetch-git ffmpeg
-        vlc discord betterdiscordctl rustup imagemagick nil picom
+        zsh-powerlevel10k 
+        zsh-autosuggestions
+        zsh-syntax-highlighting
+        zsh-vi-mode
+        discord betterdiscordctl
+        ssh-agents
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -63,23 +66,28 @@ let
             python = "python3";
         };
         zplug = {
-            enable = true;
-            plugins = [
-                { name = "zsh-users/zsh-autosuggestions"; }
-                { name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
-                { name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
-                { name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
-                { name = "jeffreytse/zsh-vi-mode"; }
-            ];
+            enable = false;
+        #    plugins = [
+                #{ name = "zsh-users/zsh-autosuggestions"; }
+                #{ name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
+                #{ name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
+                #{ name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
+                #{ name = "jeffreytse/zsh-vi-mode"; }
+        #    ];
         };
         initExtra = ''
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
             [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+            source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+            source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+            source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+            source ~/ssh-agent.zsh
         '';
     };
 
     home.file.".scripts".source = ./scripts;
     home.file.".Xresources".source = ./.Xresources;
+    home.file."ssh-agent.zsh".source = ./ssh-agent.zsh;
 
     xdg.configFile."picom.conf".source = ./picom.conf;
     #xdg.configFile."hypr".source = ./hypr;
@@ -110,16 +118,6 @@ let
     #    style = (builtins.readFile ./wofi.css);
     #};
 
-    gtk.iconTheme = {
-        package = pkgs.gruvbox-dark-icons-gtk;
-        name = "Gruvbox-Dark";
-    };
-
-    gtk.theme = {
-        package = pkgs.gruvbox-dark-gtk;
-        name = "gruvbox-dark-gtk";
-    };
-
     services.dunst.enable = true;
     services.kdeconnect.enable = true;
     services.kdeconnect.indicator = true;
@@ -143,18 +141,6 @@ let
     #        home-server
     #    '';
     #};
-
-    systemd.user.services = {
-        home-server = {
-            Unit = {
-                Description = "Simple static webserver";
-            };
-            Service = {
-                Type = "exec";
-                ExecStart = "python3 -m http.server -d /home/asif/.dotfiles/user/asif/startpage-new 8000";
-            };
-        };
-    };
 
     programs.neovim = {
         enable = true;
