@@ -35,6 +35,9 @@ let
         zsh-vi-mode
         discord betterdiscordctl
         ssh-agents
+        numix-cursor-theme
+        flat-remix-gtk
+        flat-remix-icon-theme
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -53,6 +56,21 @@ let
         enable = true;
         userName = "Asif Zaman";
         userEmail = "zero362001@gmail.com";
+    };
+
+    gtk.cursorTheme = {
+      name = "Numix-Cursor";
+      package = pkgs.numix-cursor-theme;
+    };
+
+    gtk.theme = {
+      name = "Flat-Remix-GTK-Green-Dark-Solid";
+      package = pkgs.flat-remix-gtk;
+    };
+
+    gtk.iconTheme = {
+      name = "Flat-Remix-Yellow-Dark";
+      package = pkgs.flat-remix-icon-theme;
     };
 
     programs.zsh = {
@@ -97,7 +115,7 @@ let
 
     programs.kitty = {
         enable = true;
-        font.size = 13;
+        font.size = 12;
         font.name = "Martian Mono";
         shellIntegration = {
             enableZshIntegration = true;
@@ -107,7 +125,7 @@ let
             shell = "tmux";
             editor = "nvim";
         };
-        extraConfig = "background_opacity 0.6";
+        extraConfig = "background_opacity 0.7";
     };
 
     #programs.wofi = {

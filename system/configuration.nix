@@ -31,7 +31,7 @@
     allowedUDPPortRanges = [ 
       { from = 1714; to = 1764; } # KDE Connect
     ];  
-    allowedTCPPorts = [ 80 443 24800 ];
+    allowedTCPPorts = [ 80 443 24800 8000 ];
     allowedUDPPorts = [ 24800 ];
   };
 
@@ -94,15 +94,19 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.windowManager.i3 = {
-    package = pkgs.i3-gaps;
+  services.xserver.desktopManager.plasma5 = {
     enable = true;
-    extraPackages = with pkgs; [
-      dmenu
-      picom
-      i3lock
-    ];
   };
+  programs.hyprland.enable = true;
+  #services.xserver.windowManager.i3 = {
+  #  package = pkgs.i3-gaps;
+  #  enable = true;
+  #  extraPackages = with pkgs; [
+  #    dmenu
+  #    picom
+  #    i3lock
+  #  ];
+  #};
 
   services.xserver.displayManager.sddm.enable = true;
   #services.xserver.windowManager.dwm.enable = true;
@@ -112,7 +116,7 @@
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
 
   services.picom = {
-    enable = true;
+    enable = false;
     settings = {
       blur = {
         method = "dual_kawase";
