@@ -76,7 +76,7 @@
   hardware.nvidia = {
 
     # Modesetting is needed for most wayland compositors
-    #modesetting.enable = true;
+    modesetting.enable = true;
 
     # Use the open source version of the kernel module
     # Only available on driver 515.43.04+
@@ -97,7 +97,6 @@
   services.xserver.desktopManager.plasma5 = {
     enable = true;
   };
-  programs.hyprland.enable = true;
   #services.xserver.windowManager.i3 = {
   #  package = pkgs.i3-gaps;
   #  enable = true;
@@ -239,12 +238,13 @@
     enableSSHSupport = true;
   };
   #programs.nm-applet.enable = true;
+  programs.xwayland.enable = true;
 
-  #programs.hyprland = {
-  #  enable = true;
-  #  xwayland.enable = true;
-  #  nvidiaPatches = true;
-  #};
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    nvidiaPatches = true;
+  };
 
   # List services that you want to enable:
 

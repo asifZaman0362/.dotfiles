@@ -38,6 +38,9 @@ let
         numix-cursor-theme
         flat-remix-gtk
         flat-remix-icon-theme
+        genymotion
+        cinnamon.nemo-with-extensions
+        #waybar
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -108,15 +111,15 @@ let
     home.file."ssh-agent.zsh".source = ./ssh-agent.zsh;
 
     xdg.configFile."picom.conf".source = ./picom.conf;
-    #xdg.configFile."hypr".source = ./hypr;
-    #xdg.configFile."waybar".source = ./waybar;
+    xdg.configFile."hypr".source = ./hypr;
+    xdg.configFile."waybar".source = ./waybar;
     xdg.configFile."i3".source = ./i3;
     xdg.configFile."polybar".source = ./polybar;
 
     programs.kitty = {
         enable = true;
         font.size = 12;
-        font.name = "Martian Mono";
+        font.name = "Hack";
         shellIntegration = {
             enableZshIntegration = true;
         };
@@ -128,13 +131,13 @@ let
         extraConfig = "background_opacity 0.7";
     };
 
-    #programs.wofi = {
-    #    enable = true;
-    #    settings = {
-    #        allow_markup = true;
-    #    };
-    #    style = (builtins.readFile ./wofi.css);
-    #};
+    programs.wofi = {
+        enable = true;
+        settings = {
+            allow_markup = true;
+        };
+        style = (builtins.readFile ./wofi.css);
+    };
 
     services.dunst.enable = true;
     services.kdeconnect.enable = true;
@@ -207,6 +210,10 @@ let
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       "general.useragent.compatMode.firefox" = true;
     };
+  };
+
+  programs.waybar = {
+    enable = true;
   };
 
 }
