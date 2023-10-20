@@ -40,6 +40,10 @@ let
         flat-remix-icon-theme
         genymotion
         cinnamon.nemo-with-extensions
+        qt5ct
+        sqlite
+        typescript
+        #chromium
         #waybar
     ];
 
@@ -119,7 +123,7 @@ let
     programs.kitty = {
         enable = true;
         font.size = 12;
-        font.name = "Hack";
+        font.name = "Pragmata Pro";
         shellIntegration = {
             enableZshIntegration = true;
         };
@@ -153,6 +157,7 @@ let
         enable = true;
         keybindings = {
             "alt + Return" = "kitty";
+            "alt + d" = "~/scripts/dmenu.sh";
         };
     };
 
@@ -179,7 +184,7 @@ let
           nodePackages.prettier_d_slim
         ];
         plugins = with pkgs.vimPlugins; [
-          telescope-nvim mason-nvim toggleterm-nvim nvim-treesitter neogit
+          telescope-nvim mason-nvim toggleterm-nvim neogit
           nvim-lspconfig emmet-vim rust-tools-nvim 
 
           nvim-treesitter-context nvim-treesitter-parsers.nix nvim-treesitter-parsers.c
