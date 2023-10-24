@@ -184,19 +184,9 @@ let
           nodePackages.prettier_d_slim
         ];
         plugins = with pkgs.vimPlugins; [
-          telescope-nvim mason-nvim toggleterm-nvim neogit
-          nvim-lspconfig emmet-vim rust-tools-nvim 
-
-          nvim-treesitter-context nvim-treesitter-parsers.nix nvim-treesitter-parsers.c
-          nvim-treesitter-parsers.cpp nvim-treesitter-parsers.rust nvim-treesitter-parsers.html
-          nvim-treesitter-parsers.markdown nvim-treesitter-parsers.markdown_inline 
-          nvim-treesitter-parsers.typescript nvim-treesitter-parsers.javascript
-
+          telescope-nvim nvim-lspconfig emmet-vim mason-nvim rose-pine
           nvim-cmp cmp-nvim-lsp cmp-path cmp-vsnip cmp-zsh cmp-rg cmp-git cmp-buffer 
           cmp-nvim-lua cmp-nvim-lsp-signature-help cmp-nvim-lsp-document-symbol vim-vsnip
-
-          nvim-tree-lua rose-pine lualine-nvim neogit nvim-dap nvim-dap-ui nvim-dap-virtual-text
-          gitsigns-nvim git-blame-nvim lspsaga-nvim
         ];
   };
 
