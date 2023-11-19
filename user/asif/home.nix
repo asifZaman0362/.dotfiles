@@ -43,6 +43,7 @@ let
         qt5ct
         sqlite
         typescript
+        barrier
         #chromium
         #waybar
     ];
