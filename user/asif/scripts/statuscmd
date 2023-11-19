@@ -24,7 +24,7 @@ function update {
 
     date="󰃭 $(date '+%a, %b %d')"
 
-    status="^b$colbg^^c$col1^ $mem ^c$col2^ $root ^c$col3^ $date ^c$col4^ $time "
+    status="  $mem | $root | $date | $time  "
     xsetroot -name "$status"
 }
 

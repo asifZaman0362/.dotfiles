@@ -1,8 +1,7 @@
 { config, pkgs, libs, ... }:
 
 let
-    homeDir = "/home/asif";
-    username = "asif"; in
+    homeDir = "/home/asif"; username = "asif"; in
 {
     # allow using unfree packages
     nixpkgs.config.allowUnfree = true;
@@ -44,8 +43,12 @@ let
         sqlite
         typescript
         barrier
-        #chromium
-        #waybar
+        handbrake
+        spotify
+        unzip
+        blender
+        gdb
+        clang-tools
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -91,16 +94,6 @@ let
             less = "bat";
             python = "python3";
         };
-        zplug = {
-            enable = false;
-        #    plugins = [
-                #{ name = "zsh-users/zsh-autosuggestions"; }
-                #{ name = "zsh-users/zsh-syntax-highlighting"; tags = [ defer:2 ]; }
-                #{ name = "plugins/git"; tags = [ from:oh-my-zsh ]; }
-                #{ name = "plugins/ssh-agent"; tags = [ from:oh-my-zsh ]; }
-                #{ name = "jeffreytse/zsh-vi-mode"; }
-        #    ];
-        };
         initExtra = ''
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
             [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -123,25 +116,16 @@ let
 
     programs.kitty = {
         enable = true;
-        font.size = 12;
-        font.name = "Pragmata Pro";
+        font.size = 16;
+        font.name = "Hack";
         shellIntegration = {
             enableZshIntegration = true;
         };
-        theme = "Rosé Pine";
+        theme = "Arthur";
         settings = {
             shell = "tmux";
             editor = "nvim";
         };
-        extraConfig = "background_opacity 0.7";
-    };
-
-    programs.wofi = {
-        enable = true;
-        settings = {
-            allow_markup = true;
-        };
-        style = (builtins.readFile ./wofi.css);
     };
 
     services.dunst.enable = true;
@@ -157,8 +141,7 @@ let
     services.sxhkd = {
         enable = true;
         keybindings = {
-            "alt + Return" = "kitty";
-            "alt + d" = "~/scripts/dmenu.sh";
+            "super + Return" = "kitty";
         };
     };
 
@@ -185,8 +168,8 @@ let
           nodePackages.prettier_d_slim
         ];
         plugins = with pkgs.vimPlugins; [
-          telescope-nvim nvim-lspconfig emmet-vim mason-nvim rose-pine
-          nvim-cmp cmp-nvim-lsp cmp-path cmp-vsnip cmp-zsh cmp-rg cmp-git cmp-buffer 
+          telescope-nvim nvim-lspconfig emmet-vim mason-nvim
+          nvim-cmp cmp-nvim-lsp cmp-path cmp-vsnip cmp-buffer 
           cmp-nvim-lua cmp-nvim-lsp-signature-help cmp-nvim-lsp-document-symbol vim-vsnip
         ];
   };
@@ -206,10 +189,6 @@ let
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
       "general.useragent.compatMode.firefox" = true;
     };
-  };
-
-  programs.waybar = {
-    enable = true;
   };
 
 }

@@ -170,5 +170,5 @@ autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 set nofoldenable
 set foldmethod=indent
 
-colorscheme rose-pine-main
+colorscheme habamax
 hi NonText ctermbg=black ctermfg=gray

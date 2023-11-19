@@ -12,6 +12,7 @@
       <home-manager/nixos>
     ];
 
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
@@ -68,6 +69,8 @@
       "nvidia"
       "nvidia-settings"
       "obsidian"
+      "spotify"
+      "discord"
     ];
 
   # Tell Xorg to use the nvidia driver
@@ -94,28 +97,26 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
-  services.xserver.desktopManager.plasma5 = {
-    enable = true;
-  };
-  #services.xserver.windowManager.i3 = {
-  #  package = pkgs.i3-gaps;
-  #  enable = true;
-  #  extraPackages = with pkgs; [
-  #    dmenu
-  #    picom
-  #    i3lock
-  #  ];
-  #};
 
   services.xserver.displayManager.sddm.enable = true;
-  #services.xserver.windowManager.dwm.enable = true;
+  services.xserver.windowManager.dwm = {
+    enable = true;
+    package = pkgs.dwm.overrideAttrs {
+      src = pkgs.fetchFromGitHub {
+        owner = "asifZaman0362";
+        repo = "dwm";
+        rev = "master";
+        sha256 = "sha256-x+gYkVAvCVnZop8erUKgDvVpJNh40Uh33FbF+2YnG+w=";
+      };
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e,caps:escape";
 
   services.picom = {
-    enable = false;
+    enable = true;
     settings = {
       blur = {
         method = "dual_kawase";
@@ -181,7 +182,6 @@
   environment.variables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
-    #WLR_NO_HARDWARE_CURSORS = "1";
   };
 
   programs.zsh.enable = true;
@@ -192,19 +192,15 @@
     killall
     lutris
     virt-manager
-    wget
+    htop
     git
-    luajit
-    lua
     curl
-    neovim
     pavucontrol
     clang
     gcc
     cinnamon.nemo-with-extensions
     python3
     dmenu
-    polybar
     home-manager
     feh
     obs-studio
@@ -213,15 +209,14 @@
     rustup
     mate.mate-polkit
     cmake
-    dwmblocks
     nitrogen
     static-web-server
     lxappearance
     scrot go audacity gimp jack2 nodejs_20 gh ripgrep
     fd exa bat trash-cli nix-prefetch-git ffmpeg
     vlc rustup imagemagick nil lldb gnumake kdevelop
+    unzip
   ];
-
 
   fonts.fonts = with pkgs; [
 	(nerdfonts.override { fonts = [ "FiraCode" "Hack" "UbuntuMono" ]; })
@@ -229,21 +224,12 @@
     martian-mono
   ];
 
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
-  };
-  #programs.nm-applet.enable = true;
-  programs.xwayland.enable = true;
-
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    nvidiaPatches = true;
   };
 
   # List services that you want to enable:
@@ -268,6 +254,7 @@
   system.stateVersion = "23.11"; # Did you read the comment?
   
   virtualisation.libvirtd.enable = true;
+  virtualisation.waydroid.enable = true;
   programs.dconf.enable = true;
 
   programs.steam = {
