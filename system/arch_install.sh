@@ -13,22 +13,22 @@ reflector --save /etc/pacman.d/mirrorlist
 
 # prompt user to create paritions
 lsblk
-echo "Enter disk name to partition:"
+echo "Enter full disk name (/dev/sdX) to partition:"
 read diskname
 cfdisk $diskname
 
 # format and mount partitions
 lsblk
-echo "Name of root partition:"
+echo "Full Name (/dev/sdXN) of root partition:"
 read root
 mkfs.ext4 $root
-echo "Name of boot partition:"
+echo "Full Name (/dev/sdXN) of boot partition:"
 read boot
 mkfs.fat -F32 $boot
-echo "Name of home partition:"
+echo "Full Name (/dev/sdXN) of home partition:"
 read home
 mkfs.ext4 $home
-echo "Name of swap partition:"
+echo "Full Name (/dev/sdXN) of swap partition:"
 read swap
 
 mkswap $swap
