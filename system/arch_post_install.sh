@@ -45,12 +45,9 @@ echo "$username password: "
 passwd $username
 
 # install services and other packages
-pacman -Syy sddm xorg-server hyprland firefox kitty zsh networkmanager neovim openssh cmake make clang
+pacman -Syy lightdm xorg-server zsh networkmanager neovim openssh cmake make clang
 
 # enable services
 systemctl enable NetworkManager
-
-# set environment variables
-echo -e "XDG_SESSION_TYPE=wayland\nXDG_CURRENT_DESKTOP=hyprland\nGTK_USE_PORTAL=0" > /etc/environment
 
 exit
