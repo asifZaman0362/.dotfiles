@@ -5,3 +5,32 @@ dwm.selbordercolor: #eb6f92
 dwm.selbgcolor: #26233a
 dwm.selfgcolor: #fabd2f7
 dwm.font: Martian Mono:size=14
+
+st.alpha: 1.0
+st.alphaOffset: 0.0
+
+st.font: Monospace-20
+
+st.borderpx: 5
+
+!'#1c1c1c', '#d75f5f', '#87af87', '#afaf87', '#5f87af', '#af87af', '#5f8787', '#9e9e9e', '#767676', '#d7875f', '#afd7af', '#d7d787', '#87afd7', '#d7afd7', '#87afaf', '#bcbcbc'
+
+*.color0: #1c1c1c
+*.color1: #d75f5f
+*.color2: #87af87
+*.color3: #afaf87
+*.color4: #5f87af
+*.color5: #af87af
+*.color6: #5f8787
+*.color7: #9e9e9e
+*.color8: #767676
+*.color9: #d78785
+*.color10: #bfbf97
+*.color11: #6f97bf
+*.color12: #bf97bf
+*.color13: #6f9797
+*.color14: #8ec07c
+*.color15: #bcbcbc
+*.background: #1c1c1c
+*.foreground: #bcbcbc
+*.cursorColor: #bcbcbc

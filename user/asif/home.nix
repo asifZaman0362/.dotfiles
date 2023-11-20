@@ -1,4 +1,4 @@
-{ config, pkgs, libs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
     homeDir = "/home/asif"; username = "asif"; in

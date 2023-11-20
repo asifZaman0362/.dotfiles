@@ -102,11 +102,8 @@
   services.xserver.windowManager.dwm = {
     enable = true;
     package = pkgs.dwm.overrideAttrs {
-      src = pkgs.fetchFromGitHub {
-        owner = "asifZaman0362";
-        repo = "dwm";
-        rev = "master";
-        sha256 = "sha256-x+gYkVAvCVnZop8erUKgDvVpJNh40Uh33FbF+2YnG+w=";
+      src = fetchTarball {
+        url = "https://github.com/asifZaman0362/dwm/archive/master.tar.gz";
       };
     };
   };
@@ -189,8 +186,18 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    (st.overrideAttrs (oldAttrs: rec {
+      src = fetchTarball {
+        url = "https://github.com/asifZaman0362/st-minimal/archive/master.tar.gz";
+      };
+      # Make sure you include whatever dependencies the fork needs to build properly!
+      buildInputs = oldAttrs.buildInputs ++ [ harfbuzz ];
+    # If you want it to be always up to date use fetchTarball instead of fetchFromGitHub
+    # src = builtins.fetchTarball {
+    #   url = "https://github.com/lukesmithxyz/st/archive/master.tar.gz";
+    # };
+    }))
     killall
-    lutris
     virt-manager
     htop
     git
@@ -219,9 +226,8 @@
   ];
 
   fonts.fonts = with pkgs; [
-	(nerdfonts.override { fonts = [ "FiraCode" "Hack" "UbuntuMono" ]; })
+	(nerdfonts.override { fonts = [ "Hack" "UbuntuMono" ]; })
 	jetbrains-mono
-    martian-mono
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -239,9 +245,6 @@
 
   security.polkit.enable = true;
 
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
 
