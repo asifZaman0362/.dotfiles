@@ -28,6 +28,7 @@ let
 
     # programs to install for the current user
     home.packages = with pkgs; [
+        btop
         zsh-powerlevel10k 
         zsh-autosuggestions
         zsh-syntax-highlighting
@@ -48,7 +49,6 @@ let
         unzip
         blender
         gdb
-        clang-tools
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -107,6 +107,7 @@ let
     home.file.".scripts".source = ./scripts;
     home.file.".Xresources".source = ./.Xresources;
     home.file."ssh-agent.zsh".source = ./ssh-agent.zsh;
+    home.file.".dwm".source = ./.dwm;
 
     xdg.configFile."picom.conf".source = ./picom.conf;
     xdg.configFile."hypr".source = ./hypr;
@@ -117,7 +118,7 @@ let
     programs.kitty = {
         enable = true;
         font.size = 16;
-        font.name = "Hack";
+        font.name = "Iosevka Nerd Font";
         shellIntegration = {
             enableZshIntegration = true;
         };
@@ -128,7 +129,7 @@ let
         };
     };
 
-    services.dunst.enable = true;
+    services.dunst.enable = false;
     services.kdeconnect.enable = true;
     services.kdeconnect.indicator = true;
 
@@ -166,11 +167,13 @@ let
           sumneko-lua-language-server
           tree-sitter
           nodePackages.prettier_d_slim
+          zls
         ];
         plugins = with pkgs.vimPlugins; [
           telescope-nvim nvim-lspconfig emmet-vim mason-nvim
           nvim-cmp cmp-nvim-lsp cmp-path cmp-vsnip cmp-buffer 
           cmp-nvim-lua cmp-nvim-lsp-signature-help cmp-nvim-lsp-document-symbol vim-vsnip
+          nvim-treesitter-context lualine-nvim
         ];
   };
 

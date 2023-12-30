@@ -1,15 +1,16 @@
-dwm.normbordercolor: #908caa
-dwm.normbgcolor: #191724
-dwm.normfgcolor: #6e6a86
-dwm.selbordercolor: #eb6f92
-dwm.selbgcolor: #26233a
-dwm.selfgcolor: #fabd2f7
-dwm.font: Martian Mono:size=14
+dwm.normbordercolor: #222222
+dwm.normbgcolor: #1d1d1d
+dwm.normfgcolor: #bbbbbb
+dwm.selbordercolor: #282828
+dwm.selbgcolor: #383838
+dwm.selfgcolor: #eeeeee
+dwm.font: Iosevka Nerd Font:size=16
+dwm.dmenufont: Iosevka Nerd Font:size=16
 
 st.alpha: 1.0
 st.alphaOffset: 0.0
 
-st.font: Monospace-20
+st.font: Iosevka Nerd Font-20
 
 st.borderpx: 5
 

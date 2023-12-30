@@ -98,7 +98,7 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.lightdm.enable = true;
   services.xserver.windowManager.dwm = {
     enable = true;
     package = pkgs.dwm.overrideAttrs {
@@ -122,6 +122,8 @@
       blurBackgroundExclude = [
           "class_g = 'librewolf'"
           "class_g = 'firefox'"
+          "window_type *= 'menu'"
+          "name ~= 'Firefox$'"
       ];
     };
     shadowExclude = [
@@ -186,6 +188,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    man-pages man-pages-posix stdmanpages
     (st.overrideAttrs (oldAttrs: rec {
       src = fetchTarball {
         url = "https://github.com/asifZaman0362/st-minimal/archive/master.tar.gz";
@@ -197,6 +200,7 @@
     #   url = "https://github.com/lukesmithxyz/st/archive/master.tar.gz";
     # };
     }))
+    xclip
     killall
     virt-manager
     htop
@@ -226,7 +230,7 @@
   ];
 
   fonts.fonts = with pkgs; [
-	(nerdfonts.override { fonts = [ "Hack" "UbuntuMono" ]; })
+	(nerdfonts.override { fonts = [ "Hack" "UbuntuMono" "FiraCode" "Iosevka" ]; })
 	jetbrains-mono
   ];
 
@@ -255,10 +259,12 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
+  documentation.dev.enable = true;
   
   virtualisation.libvirtd.enable = true;
   virtualisation.waydroid.enable = true;
   programs.dconf.enable = true;
+  
 
   programs.steam = {
     enable = true;

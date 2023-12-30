@@ -12,6 +12,7 @@ set expandtab
 set shiftwidth=4
 set background=dark
 set completeopt+=preview
+set nowrap
 
 let mapleader=" "
 noremap <leader>t :Lexplore<CR>
@@ -54,6 +55,7 @@ require "lspconfig".glslls.setup({})
 require "lspconfig".nil_ls.setup({})
 require "lspconfig".emmet_ls.setup({})
 require "lspconfig".tsserver.setup({})
+require "lspconfig".zls.setup({})
 
 local cmp = require 'cmp'
 cmp.setup({
@@ -142,6 +144,17 @@ vim.diagnostic.config({
 
 require'telescope'.setup({defaults = {sorting_strategy="ascending"}})
 
+vim.cmd [[colorscheme habamax]]
+
+vim.api.nvim_set_hl(0, "FloatBorder", {bg="#1d1d1d", fg="#b1b1b1"})
+vim.api.nvim_set_hl(0, "NormalFloat", {bg="#1d1d1d"})
+vim.api.nvim_set_hl(0, "TelescopeBorder", {bg="#1d1d1d"})
+vim.api.nvim_set_hl(0, "TelescopeNormal", {bg="#1d1d1d"})
+
+require('lualine').setup {
+  options = { theme = 'base16' },
+}
+
 EOF
 
 noremap gR :lua vim.lsp.buf.references()<CR>
@@ -169,6 +182,6 @@ autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 
 set nofoldenable
 set foldmethod=indent
-
-colorscheme habamax
-hi NonText ctermbg=black ctermfg=gray
+set cursorline
+set termguicolors
+hi NonText guibg=#2d2d2d guifg=#b1b1b1
