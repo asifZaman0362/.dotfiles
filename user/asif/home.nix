@@ -18,7 +18,7 @@ let
     #
     # You can update Home Manager without changing this value.
     # See the Home Manager release notes for a list of state version changes in each release.
-    home.stateVersion = "23.05";
+    home.stateVersion = "23.11";
 
     nixpkgs.overlays = [
       (import (builtins.fetchTarball {
@@ -28,6 +28,7 @@ let
 
     # programs to install for the current user
     home.packages = with pkgs; [
+        obs-studio
         btop
         zsh-powerlevel10k 
         zsh-autosuggestions
@@ -49,6 +50,7 @@ let
         unzip
         blender
         gdb
+        steam
     ];
 
     home.sessionPath = [ "${homeDir}/.scripts" ];
@@ -173,7 +175,10 @@ let
           telescope-nvim nvim-lspconfig emmet-vim mason-nvim
           nvim-cmp cmp-nvim-lsp cmp-path cmp-vsnip cmp-buffer 
           cmp-nvim-lua cmp-nvim-lsp-signature-help cmp-nvim-lsp-document-symbol vim-vsnip
-          nvim-treesitter-context lualine-nvim
+          nvim-treesitter-context lualine-nvim nvim-treesitter nvim-treesitter-parsers.zig
+          nvim-treesitter-parsers.javascript nvim-treesitter-parsers.rust nvim-treesitter-parsers.html
+          nvim-treesitter-parsers.tsx nvim-treesitter-parsers.cpp nvim-treesitter-parsers.c 
+          nvim-treesitter-parsers.rust nvim-treesitter-parsers.python
         ];
   };
 

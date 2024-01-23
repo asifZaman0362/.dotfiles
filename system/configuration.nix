@@ -5,6 +5,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
+
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
@@ -62,15 +66,12 @@
   # NVIDIA drivers are unfree.
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-original"
-      "steam-run"
       "nvidia-x11"
       "nvidia"
       "nvidia-settings"
-      "obsidian"
-      "spotify"
-      "discord"
+      "steam"
+      "steam-original"
+      "steam-run"
     ];
 
   # Tell Xorg to use the nvidia driver
@@ -79,11 +80,11 @@
   hardware.nvidia = {
 
     # Modesetting is needed for most wayland compositors
-    modesetting.enable = true;
+    # modesetting.enable = true;
 
     # Use the open source version of the kernel module
     # Only available on driver 515.43.04+
-    #open = true;
+    # open = true;
 
     # Enable the nvidia settings menu
     nvidiaSettings = true;
@@ -214,22 +215,18 @@
     dmenu
     home-manager
     feh
-    obs-studio
-    obsidian
-    obs-studio-plugins.input-overlay
     rustup
     mate.mate-polkit
     cmake
     nitrogen
-    static-web-server
     lxappearance
-    scrot go audacity gimp jack2 nodejs_20 gh ripgrep
-    fd exa bat trash-cli nix-prefetch-git ffmpeg
-    vlc rustup imagemagick nil lldb gnumake kdevelop
+    scrot jack2 ripgrep
+    fd eza bat trash-cli nix-prefetch-git ffmpeg
+    rustup imagemagick nil lldb gnumake 
     unzip
   ];
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
 	(nerdfonts.override { fonts = [ "Hack" "UbuntuMono" "FiraCode" "Iosevka" ]; })
 	jetbrains-mono
   ];
@@ -264,12 +261,10 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.waydroid.enable = true;
   programs.dconf.enable = true;
-  
-
   programs.steam = {
     enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
 
 }

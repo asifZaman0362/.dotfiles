@@ -56,6 +56,11 @@ require "lspconfig".nil_ls.setup({})
 require "lspconfig".emmet_ls.setup({})
 require "lspconfig".tsserver.setup({})
 require "lspconfig".zls.setup({})
+require "nvim-treesitter.configs".setup {
+  highlight = {
+    enable = true,
+  }
+}
 
 local cmp = require 'cmp'
 cmp.setup({
