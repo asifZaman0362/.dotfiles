@@ -149,15 +149,14 @@ vim.diagnostic.config({
 
 require'telescope'.setup({defaults = {sorting_strategy="ascending"}})
 
-vim.cmd [[colorscheme habamax]]
 
-vim.api.nvim_set_hl(0, "FloatBorder", {bg="#1d1d1d", fg="#b1b1b1"})
+vim.api.nvim_set_hl(0, "FloatBorder", {})
 vim.api.nvim_set_hl(0, "NormalFloat", {bg="#1d1d1d"})
 vim.api.nvim_set_hl(0, "TelescopeBorder", {bg="#1d1d1d"})
 vim.api.nvim_set_hl(0, "TelescopeNormal", {bg="#1d1d1d"})
 
 require('lualine').setup {
-  options = { theme = 'base16' },
+  options = { theme = 'auto' },
 }
 
 EOF
@@ -190,3 +189,4 @@ set foldmethod=indent
 set cursorline
 set termguicolors
 hi NonText guibg=#2d2d2d guifg=#b1b1b1
+colorscheme rose-pine-moon

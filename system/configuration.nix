@@ -20,7 +20,10 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    consoleMode = "max";
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -76,6 +79,7 @@
 
   # Tell Xorg to use the nvidia driver
   services.xserver.videoDrivers = ["nvidia"];
+  services.passSecretService.enable = true;
 
   hardware.nvidia = {
 
@@ -185,6 +189,7 @@
   };
 
   programs.zsh.enable = true;
+  programs.adb.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -229,6 +234,7 @@
   fonts.packages = with pkgs; [
 	(nerdfonts.override { fonts = [ "Hack" "UbuntuMono" "FiraCode" "Iosevka" ]; })
 	jetbrains-mono
+    fantasque-sans-mono
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

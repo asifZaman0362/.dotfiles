@@ -120,11 +120,11 @@ let
     programs.kitty = {
         enable = true;
         font.size = 16;
-        font.name = "Iosevka Nerd Font";
+        font.name = "Fantasque Sans Mono";
         shellIntegration = {
             enableZshIntegration = true;
         };
-        theme = "Arthur";
+        theme = "Rosé Pine Moon";
         settings = {
             shell = "tmux";
             editor = "nvim";
@@ -178,7 +178,8 @@ let
           nvim-treesitter-context lualine-nvim nvim-treesitter nvim-treesitter-parsers.zig
           nvim-treesitter-parsers.javascript nvim-treesitter-parsers.rust nvim-treesitter-parsers.html
           nvim-treesitter-parsers.tsx nvim-treesitter-parsers.cpp nvim-treesitter-parsers.c 
-          nvim-treesitter-parsers.rust nvim-treesitter-parsers.python
+          nvim-treesitter-parsers.rust nvim-treesitter-parsers.python nvim-base16 zenbones-nvim
+          zenburn melange-nvim oxocarbon-nvim nvim-tree-lua lush-nvim rose-pine
         ];
   };
 
