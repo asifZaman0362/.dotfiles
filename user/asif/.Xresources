@@ -1,9 +1,9 @@
-dwm.normbordercolor: #222222
-dwm.normbgcolor: #1d1d1d
-dwm.normfgcolor: #bbbbbb
-dwm.selbordercolor: #282828
-dwm.selbgcolor: #383838
-dwm.selfgcolor: #eeeeee
+dwm.normbordercolor: #393552
+dwm.normbgcolor: #232136
+dwm.normfgcolor: #908caa
+dwm.selbordercolor: #393552
+dwm.selbgcolor: #393552
+dwm.selfgcolor: #e0def4
 dwm.font: Iosevka Nerd Font:size=16
 dwm.dmenufont: Iosevka Nerd Font:size=16
 

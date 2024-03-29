@@ -1,3 +1,3 @@
 #!/bin/sh
 $HOME/.scripts/statuscmd &
-steam &
+feh --bg-fill $HOME/.wallpaper &
